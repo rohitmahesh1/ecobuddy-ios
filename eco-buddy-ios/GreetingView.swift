@@ -37,8 +37,10 @@ struct GreetingView: View, KeyboardReadable {
     
     @State var txtName: String = ""
     @State var navigateHome = false
-    @State var showAlert = false
-    @State var validationDone = false
+    @State private var isShowingAlert = false
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
+    @State private var isSubmitting = false
     @AppStorage("userName") var userName: String = ""
     @AppStorage("profileImage") var profileImage: String = ""
     @State private var isKeyboardVisible = false
@@ -47,6 +49,50 @@ struct GreetingView: View, KeyboardReadable {
     let profileImages: [ProfileImage] = [.one, .two, .three, .four, .five, .six]
     
     var isEditProfile: Bool
+
+    private var trimmedName: String {
+        txtName.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    private func presentAlert(title: String, message: String = "") {
+        alertTitle = title
+        alertMessage = message
+        isShowingAlert = true
+    }
+
+    private func submitName() {
+        guard !trimmedName.isEmpty else {
+            presentAlert(title: "Name can't be empty")
+            return
+        }
+
+        let submittedName = trimmedName
+
+        guard !isEditProfile else {
+            userName = submittedName
+            presentAlert(title: "Name changed successfully")
+            return
+        }
+
+        isSubmitting = true
+
+        PersistentStorage.shared.loadAllData { error in
+            self.isSubmitting = false
+
+            if let error {
+                self.presentAlert(title: "Couldn't finish setup", message: error.localizedDescription)
+                return
+            }
+
+            self.userName = submittedName
+
+            if self.profileImage.isEmpty {
+                self.profileImage = self.profileImages.randomElement()?.name ?? ""
+            }
+
+            self.navigateHome = true
+        }
+    }
     
     var body: some View {
         VStack {
@@ -91,39 +137,22 @@ struct GreetingView: View, KeyboardReadable {
                         .stroke(.black.opacity(0.2), lineWidth: 1)
                 )
                 .background(Color.white.cornerRadius(10, corners: .allCorners))
+                .disabled(isSubmitting)
                 CustomButtonView(
                     onTap: {
-                        if txtName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                            self.showAlert = true
-                        } else {
-                            
-                            if isEditProfile {
-                                self.validationDone = true
-                                self.showAlert = true
-                            } else {
-                                PersistentStorage.shared.loadAllData { error in
-                                    guard error == nil else { return }
-                                    self.userName = txtName
-                                    self.profileImage =
-                                    self.profileImages.shuffled().randomElement()?.name ?? ""
-                                    self.navigateHome = true
-                                }
-                            }
-
-                        }
+                        submitName()
                     },
-                    title: "Submit"
+                    title: isSubmitting ? "Setting Up..." : "Submit"
                 )
+                .disabled(isSubmitting)
+                .opacity(isSubmitting ? 0.7 : 1)
             }
-            .alert(isPresented: $showAlert, content: {
-                if !self.validationDone {
-                    Alert(title: Text("Name can't be empty"), dismissButton: .cancel())
-                } else {
-                    Alert(title: Text("Name changed successfully"), dismissButton: .default(Text("OK"), action: {
-                        self.userName = txtName
-                    }))
-                }
-                
+            .alert(isPresented: $isShowingAlert, content: {
+                Alert(
+                    title: Text(alertTitle),
+                    message: alertMessage.isEmpty ? nil : Text(alertMessage),
+                    dismissButton: .default(Text("OK"))
+                )
             })
             .padding([.leading, .trailing], 20)
             .padding(.bottom, 10)
