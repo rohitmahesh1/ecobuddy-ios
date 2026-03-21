@@ -100,9 +100,26 @@
 		7A9763792ABAC3970081FD81 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9763782ABAC3970081FD81 /* AppDelegate.swift */; };
 		7A97637C2ABAC3F40081FD81 /* Crashlytics+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A97637B2ABAC3F40081FD81 /* Crashlytics+Extensions.swift */; };
 		7A97637E2ABAC4370081FD81 /* Errors+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A97637D2ABAC4370081FD81 /* Errors+Extensions.swift */; };
+		A1B2C3D42B10000100AAA001 /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42B10000100BBB001 /* StringExtensionTests.swift */; };
+		A1B2C3D42B10000100AAA002 /* URLExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42B10000100BBB002 /* URLExtensionTests.swift */; };
+		A1B2C3D42B10000100AAA003 /* AppErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42B10000100BBB003 /* AppErrorTests.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		A1B2C3D42B10000100EEE001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A9763582ABABEC50081FD81 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A97635F2ABABEC50081FD81;
+			remoteInfo = "eco-buddy-ios";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		A1B2C3D42B10000100BBB001 /* StringExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionTests.swift; sourceTree = "<group>"; };
+		A1B2C3D42B10000100BBB002 /* URLExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensionTests.swift; sourceTree = "<group>"; };
+		A1B2C3D42B10000100BBB003 /* AppErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppErrorTests.swift; sourceTree = "<group>"; };
+		A1B2C3D42B10000100BBB004 /* eco-buddy-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "eco-buddy-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E086D8D2ADFAEBD008C1425 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		3E086D8F2ADFE4BF008C1425 /* Keyboard+CombinePublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Keyboard+CombinePublisher.swift"; sourceTree = "<group>"; };
 		3E5AFFBE2AD6739300B3727C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -196,6 +213,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A1B2C3D42B10000100DDD001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7A97635D2ABABEC50081FD81 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -211,6 +235,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A1B2C3D42B10000100CCC001 /* eco-buddy-iosTests */ = {
+			isa = PBXGroup;
+			children = (
+				A1B2C3D42B10000100BBB003 /* AppErrorTests.swift */,
+				A1B2C3D42B10000100BBB001 /* StringExtensionTests.swift */,
+				A1B2C3D42B10000100BBB002 /* URLExtensionTests.swift */,
+			);
+			path = "eco-buddy-iosTests";
+			sourceTree = "<group>";
+		};
 		3E5AFFBC2AD6736000B3727C /* Screens */ = {
 			isa = PBXGroup;
 			children = (
@@ -401,6 +435,7 @@
 			isa = PBXGroup;
 			children = (
 				7A9763622ABABEC50081FD81 /* eco-buddy-ios */,
+				A1B2C3D42B10000100CCC001 /* eco-buddy-iosTests */,
 				7A9763612ABABEC50081FD81 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -409,6 +444,7 @@
 			isa = PBXGroup;
 			children = (
 				7A9763602ABABEC50081FD81 /* eco-buddy-ios.app */,
+				A1B2C3D42B10000100BBB004 /* eco-buddy-iosTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -462,6 +498,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A1B2C3D42B10000100FFF001 /* eco-buddy-iosTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1B2C3D42B10000100FFF002 /* Build configuration list for PBXNativeTarget "eco-buddy-iosTests" */;
+			buildPhases = (
+				A1B2C3D42B10000100DDD002 /* Sources */,
+				A1B2C3D42B10000100DDD001 /* Frameworks */,
+				A1B2C3D42B10000100DDD003 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A1B2C3D42B10000100EEE002 /* PBXTargetDependency */,
+			);
+			name = "eco-buddy-iosTests";
+			productName = "eco-buddy-iosTests";
+			productReference = A1B2C3D42B10000100BBB004 /* eco-buddy-iosTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		7A97635F2ABABEC50081FD81 /* eco-buddy-ios */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7A97636E2ABABEC60081FD81 /* Build configuration list for PBXNativeTarget "eco-buddy-ios" */;
@@ -497,6 +551,10 @@
 				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					A1B2C3D42B10000100FFF001 = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = 7A97635F2ABABEC50081FD81;
+					};
 					7A97635F2ABABEC50081FD81 = {
 						CreatedOnToolsVersion = 14.3.1;
 					};
@@ -521,12 +579,20 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				A1B2C3D42B10000100FFF001 /* eco-buddy-iosTests */,
 				7A97635F2ABABEC50081FD81 /* eco-buddy-ios */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		A1B2C3D42B10000100DDD003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7A97635E2ABABEC50081FD81 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -594,6 +660,16 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A1B2C3D42B10000100DDD002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1B2C3D42B10000100AAA003 /* AppErrorTests.swift in Sources */,
+				A1B2C3D42B10000100AAA001 /* StringExtensionTests.swift in Sources */,
+				A1B2C3D42B10000100AAA002 /* URLExtensionTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7A97635C2ABABEC50081FD81 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -659,7 +735,81 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		A1B2C3D42B10000100EEE002 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A97635F2ABABEC50081FD81 /* eco-buddy-ios */;
+			targetProxy = A1B2C3D42B10000100EEE001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		A1B2C3D42B10000100ABC001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = WZ53B766HG;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cleanairmi.eco-health-iosTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/eco-buddy-ios.app/eco-buddy-ios";
+			};
+			name = Debug;
+		};
+		A1B2C3D42B10000100ABC002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = WZ53B766HG;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cleanairmi.eco-health-iosTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/eco-buddy-ios.app/eco-buddy-ios";
+			};
+			name = Release;
+		};
 		7A97636C2ABABEC60081FD81 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -852,6 +1002,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A1B2C3D42B10000100FFF002 /* Build configuration list for PBXNativeTarget "eco-buddy-iosTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1B2C3D42B10000100ABC001 /* Debug */,
+				A1B2C3D42B10000100ABC002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7A97635B2ABABEC50081FD81 /* Build configuration list for PBXProject "eco-buddy-ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
