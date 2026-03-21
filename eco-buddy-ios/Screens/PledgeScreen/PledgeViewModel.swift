@@ -33,7 +33,7 @@ class PledgeViewModel: ObservableObject {
        
         let challenges = persistantStorage.getChallenges()
         let filteredChallenges = challenges.filter({ challenge in
-            category.challengeIdArray.contains(challenge.wrappedChallengeId)
+            category.challengeIds.contains(challenge.wrappedChallengeId)
         }).prefix(5)
         
         challengesVM = filteredChallenges.map({ challenge in

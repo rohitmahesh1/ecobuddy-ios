@@ -16,16 +16,17 @@ extension SubChallenge {
         return NSFetchRequest<SubChallenge>(entityName: "SubChallenge")
     }
 
-    @NSManaged public var challengeId: String?
-    @NSManaged public var challengeTitle: String?
     @NSManaged public var challengeStatus: Bool
+    @NSManaged public var challengeTitle: String
+    @NSManaged public var displayOrder: Int16
+    @NSManaged public var subChallengeId: String
     
-    public var wrappedChallengeId: String {
-        challengeId ?? "unknown challenge id"
+    public var wrappedSubChallengeId: String {
+        subChallengeId
     }
     
     public var wrappedChallengeTitle: String {
-        challengeTitle ?? "unknown challenge title"
+        challengeTitle
     }
 }
 

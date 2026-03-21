@@ -60,10 +60,10 @@ struct ChallengeDetailsView: View {
     
     private func getSubChallenges() {
         guard let challenge = challenge else { return }
-        let subChallengesIDs = challenge.subChallengesIDs
+        let subChallengeIds = challenge.subChallengeIds
         
         let subChallenges = persistantStorage.getSubChallenges().filter { subChallenge in
-            subChallengesIDs.contains(subChallenge.wrappedChallengeId)
+            subChallengeIds.contains(subChallenge.wrappedSubChallengeId)
         }
         
         self.subChallenges = subChallenges.map({ subChallenge in
@@ -100,7 +100,7 @@ struct ChallengeDetailsView: View {
                         Color.greenMain
                             .frame(height: geometry.safeAreaInsets.top + 4)
                             .edgesIgnoringSafeArea(.top)
-                        YoutubeVideoView(youtubeVideoID: challenge?.challengeVIdeoURL?.convertUrl?.extractVideoID() ?? "")
+                        YoutubeVideoView(youtubeVideoID: challenge?.challengeVideoURL?.convertUrl?.extractVideoID() ?? "")
                             .frame(height: 210)
                             .padding(.top, 8)
                     }
@@ -307,7 +307,7 @@ class SDWebImageViewModel: ObservableObject {
         if let challengeImage = challenge?.challengeImage {
             image = challengeImage
         } else {
-            image = challenge?.challengeVIdeoURL?.convertUrl?.extractVideoID()?.thumnailURL.convertUrl
+            image = challenge?.challengeVideoURL?.convertUrl?.extractVideoID()?.thumnailURL.convertUrl
         }
         SDWebImageManager.shared.loadImage(with: image) { _, _, _ in
         } completed: { image, data, error, _, _, _ in

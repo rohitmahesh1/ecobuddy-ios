@@ -120,7 +120,7 @@ class PersistantStorage {
             challenge.challengeTitle = challengeLocal.challengeTitle
             challenge.challengeDescription = challengeLocal.challengeDescription
             challenge.challengeImage =  challengeLocal.challengeImage?.convertUrl
-            challenge.challengeVIdeoURL = challengeLocal.videoURL
+            challenge.challengeVideoURL = challengeLocal.videoURL
             challenge.isCompleted = challengeLocal.isCompleted
             if let challengeSubIds = challengeLocal.subChallengeIds {
                 challenge.subChallenges = challengeSubIds
@@ -219,7 +219,7 @@ extension PersistantStorage {
     
     func editSubTask(_ subChallenge: SubChallenge, isDone: Bool, completion: (() -> ())) {
         let fetchRequest = SubChallenge.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "challengeId == %@", subChallenge.wrappedChallengeId)
+        fetchRequest.predicate = NSPredicate(format: "subChallengeId == %@", subChallenge.wrappedSubChallengeId)
         
         do {
             guard let challengeToEdit = try container.viewContext.fetch(fetchRequest).first else { return }

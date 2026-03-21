@@ -50,7 +50,7 @@ class ChallengesViewModel: ObservableObject {
         guard let category else { return }
         let challenges = persistantStorage.getChallenges()
         let filteredChallenges = challenges.filter({ challenge in
-            category.challengeIdArray.contains(challenge.wrappedChallengeId) && !challenge.isCompleted
+            category.challengeIds.contains(challenge.wrappedChallengeId) && !challenge.isCompleted
         }).prefix(5)
         
         self.challengesVM = filteredChallenges.map({ challenge in

@@ -16,24 +16,23 @@ extension Module {
         return NSFetchRequest<Module>(entityName: "Module")
     }
 
-    @NSManaged public var moduleId: String?
-    @NSManaged public var moduleTitle: String?
     @NSManaged public var categoryIds: [String]?
+    @NSManaged public var displayOrder: Int16
+    @NSManaged public var moduleId: String
+    @NSManaged public var moduleTitle: String
     
-    public var wrappedModuleID: String {
-        moduleId ?? "unknown module Id"
+    public var wrappedModuleId: String {
+        moduleId
     }
     
     public var wrappedModuleTitle: String {
-        moduleTitle ?? "unknown wrapped title"
+        moduleTitle
     }
     
-    public var categoryIdArray: [String] {
+    public var categoryIdsArray: [String] {
         guard let categoryIds else { return [] }
-        let set = Set(categoryIds)
-        return set.sorted {
-            $0 < $1
-        }
+        let orderedIds = NSOrderedSet(array: categoryIds).array.compactMap { $0 as? String }
+        return orderedIds
     }
 
 }

@@ -40,7 +40,7 @@ struct UserProfileView: View {
                     CleanEnvCardView(
                         viewModel: CardViewModel(
                             image: challengeVM.challenge.challengeImage,
-                            video: challengeVM.challenge.challengeVIdeoURL,
+                            video: challengeVM.challenge.challengeVideoURL,
                             title: challengeVM.challenge.wrappedChallengeTitle,
                             subTitle: challengeVM.challenge.wrappedChallengeDescription,
                             titleColor: self.cellColors.randomElement()!,

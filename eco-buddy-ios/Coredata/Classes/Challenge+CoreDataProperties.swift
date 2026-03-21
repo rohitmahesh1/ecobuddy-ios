@@ -16,32 +16,31 @@ extension Challenge {
         return NSFetchRequest<Challenge>(entityName: "Challenge")
     }
 
-    @NSManaged public var challengeId: String?
-    @NSManaged public var isCompleted: Bool
-    @NSManaged public var challengeTitle: String?
-    @NSManaged public var challengeDescription: String?
+    @NSManaged public var challengeDescription: String
+    @NSManaged public var challengeId: String
     @NSManaged public var challengeImage: URL?
-    @NSManaged public var challengeVIdeoURL: String?
+    @NSManaged public var challengeTitle: String
+    @NSManaged public var challengeVideoURL: String?
+    @NSManaged public var displayOrder: Int16
+    @NSManaged public var isCompleted: Bool
     @NSManaged public var subChallenges: [String]?
     
     public var wrappedChallengeId: String {
-        challengeId ?? "unknown challenge id"
+        challengeId
     }
     
     public var wrappedChallengeTitle: String {
-        challengeTitle ?? "unknown challenge title"
+        challengeTitle
     }
     
     public var wrappedChallengeDescription: String {
-        challengeDescription ?? "unknown challenge description"
+        challengeDescription
     }
     
-    public var subChallengesIDs: [String] {
+    public var subChallengeIds: [String] {
         guard let subChallenges else { return [] }
-        let set = Set(subChallenges)
-        return set.sorted {
-            $0 < $1
-        }
+        let orderedIds = NSOrderedSet(array: subChallenges).array.compactMap { $0 as? String }
+        return orderedIds
     }
 
 }

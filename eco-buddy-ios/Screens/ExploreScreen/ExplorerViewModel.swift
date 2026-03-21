@@ -37,9 +37,9 @@ class ExplorerViewModel: ObservableObject {
         let challenges = persistantStorage.getChallenges()
         
         self.challengesVM = challenges.map({ challenge in
-            let subChallengesIDs = challenge.subChallengesIDs
+            let subChallengeIds = challenge.subChallengeIds
             let subChallenges = persistantStorage.getSubChallenges().filter { subChallenge in
-                subChallengesIDs.contains(subChallenge.wrappedChallengeId)
+                subChallengeIds.contains(subChallenge.wrappedSubChallengeId)
             }
             let allDone = subChallenges.allSatisfy { $0.challengeStatus } && !subChallenges.isEmpty
             

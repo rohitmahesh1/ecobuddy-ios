@@ -31,7 +31,7 @@ class HomeViewModel: ObservableObject {
     
     func loadCategories() {
         guard let module = self.loadModule() else { return }
-        let categoryIds = module.categoryIdArray
+        let categoryIds = module.categoryIdsArray
         
         let filteredCategory = persistantStorage.getCategories().filter({ category in
             categoryIds.contains(category.wrappedCategoryId)
