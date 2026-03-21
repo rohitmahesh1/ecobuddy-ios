@@ -8,6 +8,16 @@
 import Foundation
 import CoreData
 
+enum PersistentStorageError: LocalizedError {
+    case objectNotFound(entityName: String, id: String)
+
+    var errorDescription: String? {
+        switch self {
+        case .objectNotFound(let entityName, let id):
+            return "\(entityName) with id \(id) could not be found."
+        }
+    }
+}
 
 class PersistentStorage {
     static let shared = PersistentStorage()
@@ -15,6 +25,7 @@ class PersistentStorage {
     let container: NSPersistentContainer
     
     typealias completionHandler = (Error?) -> Void
+    typealias resultHandler = (Result<Void, Error>) -> Void
     
     var context: NSManagedObjectContext {
         return self.container.viewContext
@@ -165,6 +176,23 @@ extension PersistentStorage {
         }
     }
 
+    private func saveViewContext(logContext: String, result: @escaping resultHandler) {
+        do {
+            if context.hasChanges {
+                try context.save()
+            }
+
+            DispatchQueue.main.async {
+                result(.success(()))
+            }
+        } catch {
+            print("Failed to \(logContext): \(error.localizedDescription)")
+            DispatchQueue.main.async {
+                result(.failure(error))
+            }
+        }
+    }
+
     func getAllModules() -> [Module] {
         let request = Module.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "displayOrder", ascending: true)]
@@ -232,6 +260,33 @@ extension PersistentStorage {
             }
         }
     }
+
+    func editSubTask(_ subChallenge: SubChallenge, isDone: Bool, result: @escaping resultHandler) {
+        context.perform {
+            let fetchRequest = SubChallenge.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "subChallengeId == %@", subChallenge.wrappedSubChallengeId)
+            fetchRequest.fetchLimit = 1
+
+            do {
+                guard let challengeToEdit = try self.context.fetch(fetchRequest).first else {
+                    let error = PersistentStorageError.objectNotFound(entityName: "Subchallenge", id: subChallenge.wrappedSubChallengeId)
+                    print(error.localizedDescription)
+                    DispatchQueue.main.async {
+                        result(.failure(error))
+                    }
+                    return
+                }
+
+                challengeToEdit.challengeStatus = !isDone
+                self.saveViewContext(logContext: "update subchallenge \(subChallenge.wrappedSubChallengeId)", result: result)
+            } catch {
+                print("Failed to update subchallenge \(subChallenge.wrappedSubChallengeId): \(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    result(.failure(error))
+                }
+            }
+        }
+    }
     
     func editChallenge(_ challenge: Challenge, isDone: Bool, completion: (() -> ())? = nil) {
         context.perform {
@@ -248,6 +303,33 @@ extension PersistentStorage {
                 self.saveViewContext(logContext: "update challenge \(challenge.wrappedChallengeId)", completion: completion)
             } catch {
                 print("Failed to update challenge \(challenge.wrappedChallengeId): \(error.localizedDescription)")
+            }
+        }
+    }
+
+    func editChallenge(_ challenge: Challenge, isDone: Bool, result: @escaping resultHandler) {
+        context.perform {
+            let fetchRequest = Challenge.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "challengeId == %@", challenge.wrappedChallengeId)
+            fetchRequest.fetchLimit = 1
+
+            do {
+                guard let challengeToEdit = try self.context.fetch(fetchRequest).first else {
+                    let error = PersistentStorageError.objectNotFound(entityName: "Challenge", id: challenge.wrappedChallengeId)
+                    print(error.localizedDescription)
+                    DispatchQueue.main.async {
+                        result(.failure(error))
+                    }
+                    return
+                }
+
+                challengeToEdit.isCompleted = isDone
+                self.saveViewContext(logContext: "update challenge \(challenge.wrappedChallengeId)", result: result)
+            } catch {
+                print("Failed to update challenge \(challenge.wrappedChallengeId): \(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    result(.failure(error))
+                }
             }
         }
     }
