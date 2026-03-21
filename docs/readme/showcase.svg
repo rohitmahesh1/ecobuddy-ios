@@ -1,0 +1,158 @@
+<svg width="1400" height="960" viewBox="0 0 1400 960" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1400" height="960" rx="32" fill="#F7FCF9"/>
+  <text x="78" y="92" fill="#0B2B1A" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="700">
+    Visual Tour
+  </text>
+  <text x="78" y="132" fill="#496257" font-family="Arial, Helvetica, sans-serif" font-size="22">
+    Recreated previews based on the current SwiftUI screens and app flows.
+  </text>
+
+  <g>
+    <rect x="78" y="190" width="280" height="628" rx="32" fill="#13291D"/>
+    <rect x="92" y="204" width="252" height="600" rx="24" fill="#F7FFF9"/>
+    <text x="116" y="242" fill="#244232" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">
+      Onboarding
+    </text>
+    <rect x="114" y="266" width="208" height="42" rx="21" fill="#E7F8ED"/>
+    <text x="148" y="293" fill="#245635" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">
+      Eco Health
+    </text>
+    <circle cx="218" cy="376" r="68" fill="#D8F7E2"/>
+    <circle cx="200" cy="370" r="10" fill="#0B2B1A"/>
+    <circle cx="236" cy="370" r="10" fill="#0B2B1A"/>
+    <path d="M194 406C205 420 231 420 242 406" stroke="#0B2B1A" stroke-width="6" stroke-linecap="round"/>
+    <rect x="118" y="468" width="204" height="92" rx="18" fill="#FFFFFF"/>
+    <text x="136" y="506" fill="#1E392B" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700">
+      Hi, my name is Buddy!
+    </text>
+    <text x="136" y="534" fill="#4D6A5F" font-family="Arial, Helvetica, sans-serif" font-size="15">
+      What's yours?
+    </text>
+    <rect x="118" y="596" width="204" height="56" rx="14" fill="#F3F8F5" stroke="#D5E8DC"/>
+    <text x="142" y="630" fill="#7C9086" font-family="Arial, Helvetica, sans-serif" font-size="16">
+      Enter your name
+    </text>
+    <rect x="118" y="674" width="204" height="54" rx="18" fill="#006F0B"/>
+    <text x="187" y="708" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">
+      Submit
+    </text>
+  </g>
+
+  <g>
+    <rect x="396" y="190" width="280" height="628" rx="32" fill="#13291D"/>
+    <rect x="410" y="204" width="252" height="600" rx="24" fill="#F9FFFC"/>
+    <text x="434" y="242" fill="#244232" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">
+      Home
+    </text>
+    <text x="434" y="286" fill="#183926" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">
+      Hello Rohit,
+    </text>
+    <circle cx="622" cy="278" r="20" fill="#D9F2E2"/>
+    <rect x="434" y="320" width="204" height="88" rx="20" fill="#FFFFFF"/>
+    <text x="452" y="354" fill="#304A3D" font-family="Arial, Helvetica, sans-serif" font-size="16">
+      What would you like to see
+    </text>
+    <text x="452" y="378" fill="#304A3D" font-family="Arial, Helvetica, sans-serif" font-size="16">
+      in today's environment?
+    </text>
+    <rect x="434" y="442" width="204" height="104" rx="22" fill="#FCE8FD"/>
+    <text x="456" y="478" fill="#3C2740" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">
+      Clean Air
+    </text>
+    <text x="456" y="508" fill="#665C6B" font-family="Arial, Helvetica, sans-serif" font-size="15">
+      Challenge yourself to
+    </text>
+    <text x="456" y="530" fill="#665C6B" font-family="Arial, Helvetica, sans-serif" font-size="15">
+      breathe easy
+    </text>
+    <rect x="434" y="564" width="204" height="104" rx="22" fill="#E7F8ED"/>
+    <text x="456" y="600" fill="#244532" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">
+      Healthy Living
+    </text>
+    <text x="456" y="630" fill="#5A7567" font-family="Arial, Helvetica, sans-serif" font-size="15">
+      Pledges and better habits
+    </text>
+    <rect x="434" y="686" width="204" height="80" rx="22" fill="#E3F5FB"/>
+    <text x="456" y="722" fill="#20485A" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">
+      Awareness
+    </text>
+    <text x="456" y="748" fill="#5C7883" font-family="Arial, Helvetica, sans-serif" font-size="15">
+      Learn first, act next
+    </text>
+  </g>
+
+  <g>
+    <rect x="714" y="190" width="280" height="628" rx="32" fill="#13291D"/>
+    <rect x="728" y="204" width="252" height="600" rx="24" fill="#F9FFFC"/>
+    <text x="752" y="242" fill="#244232" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">
+      Challenge Detail
+    </text>
+    <rect x="752" y="266" width="204" height="118" rx="22" fill="#DDF5E7"/>
+    <text x="774" y="314" fill="#214230" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">
+      Fresh Air Wellness
+    </text>
+    <text x="774" y="344" fill="#567064" font-family="Arial, Helvetica, sans-serif" font-size="15">
+      Step outside, get active,
+    </text>
+    <text x="774" y="366" fill="#567064" font-family="Arial, Helvetica, sans-serif" font-size="15">
+      and enjoy the cleaner air.
+    </text>
+    <rect x="752" y="418" width="204" height="52" rx="14" fill="#FFFFFF" stroke="#D5E8DC"/>
+    <circle cx="778" cy="444" r="9" fill="#006F0B"/>
+    <text x="800" y="449" fill="#2F4A3D" font-family="Arial, Helvetica, sans-serif" font-size="15">
+      Take a 30 minute walk
+    </text>
+    <rect x="752" y="486" width="204" height="52" rx="14" fill="#FFFFFF" stroke="#D5E8DC"/>
+    <circle cx="778" cy="512" r="9" stroke="#A4BCB0" stroke-width="2"/>
+    <text x="800" y="517" fill="#2F4A3D" font-family="Arial, Helvetica, sans-serif" font-size="15">
+      Share your progress
+    </text>
+    <rect x="752" y="554" width="204" height="52" rx="14" fill="#FFFFFF" stroke="#D5E8DC"/>
+    <circle cx="778" cy="580" r="9" stroke="#A4BCB0" stroke-width="2"/>
+    <text x="800" y="585" fill="#2F4A3D" font-family="Arial, Helvetica, sans-serif" font-size="15">
+      Finish all subtasks
+    </text>
+    <rect x="752" y="678" width="204" height="56" rx="18" fill="#006F0B"/>
+    <text x="803" y="712" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">
+      Complete Challenge
+    </text>
+  </g>
+
+  <g>
+    <rect x="1032" y="190" width="280" height="628" rx="32" fill="#13291D"/>
+    <rect x="1046" y="204" width="252" height="600" rx="24" fill="#F9FFFC"/>
+    <text x="1070" y="242" fill="#244232" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">
+      Explore + Pledge
+    </text>
+    <rect x="1070" y="278" width="204" height="112" rx="22" fill="#EAF8FC"/>
+    <text x="1092" y="316" fill="#17485A" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">
+      Browse All
+    </text>
+    <text x="1092" y="346" fill="#5D7A84" font-family="Arial, Helvetica, sans-serif" font-size="15">
+      Scroll through the full
+    </text>
+    <text x="1092" y="368" fill="#5D7A84" font-family="Arial, Helvetica, sans-serif" font-size="15">
+      challenge library
+    </text>
+    <rect x="1070" y="420" width="204" height="112" rx="22" fill="#FCE8FD"/>
+    <text x="1092" y="458" fill="#3C2740" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">
+      Take a Pledge
+    </text>
+    <text x="1092" y="488" fill="#6A5C6D" font-family="Arial, Helvetica, sans-serif" font-size="15">
+      Healthy living actions
+    </text>
+    <text x="1092" y="510" fill="#6A5C6D" font-family="Arial, Helvetica, sans-serif" font-size="15">
+      you can commit to now
+    </text>
+    <rect x="1070" y="562" width="204" height="136" rx="22" fill="#FFFFFF" stroke="#D7E9DE"/>
+    <text x="1092" y="600" fill="#234532" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">
+      Profile Progress
+    </text>
+    <text x="1092" y="632" fill="#5B7568" font-family="Arial, Helvetica, sans-serif" font-size="15">
+      Completed challenges,
+    </text>
+    <text x="1092" y="654" fill="#5B7568" font-family="Arial, Helvetica, sans-serif" font-size="15">
+      saved name, and avatar
+    </text>
+  </g>
+</svg>
