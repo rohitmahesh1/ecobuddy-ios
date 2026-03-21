@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ChallengesView: View {
     
-    private var cellColors: [Color] = [.ecoPink, .ecoGreen, .ecoSkyBlue]
+    private let cellColors: [Color] = [.ecoPink, .ecoGreen, .ecoSkyBlue]
     
     @ObservedObject var viewModel: ChallengesViewModel
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -33,7 +33,7 @@ struct ChallengesView: View {
                 .padding(.top, 12)
                 .padding([.leading, .trailing], 16)
                 
-                if viewModel.challengesVM.count == 0 {
+                if viewModel.challengesVM.isEmpty {
                     Spacer()
                     Text("Congrats! \nYou have completed all challenges.")
                         .font(.gilroyMedium(14))
@@ -41,38 +41,36 @@ struct ChallengesView: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .foregroundStyle(.black)
                         .multilineTextAlignment(.center)
-                }
-                
-                ScrollView {
-                    ForEach(0..<viewModel.challengesVM.count, id: \.self) { index in
-                        let challengeVM = viewModel.challengesVM[index]
-                
-                        CleanEnvCardView(
-                            viewModel: CardViewModel(
-                                image: challengeVM.challenge.challengeImage,
-                                video: challengeVM.challenge.challengeVideoURL,
-                                title: challengeVM.challenge.wrappedChallengeTitle,
-                                subTitle: challengeVM.challenge.wrappedChallengeDescription,
-                                titleColor: self.cellColors.randomElement()!,
-                                isCompleted: challengeVM.isSubCompleted
+                } else {
+                    ScrollView {
+                        ForEach(Array(viewModel.challengesVM.enumerated()), id: \.element.id) { index, challengeVM in
+                            CleanEnvCardView(
+                                viewModel: CardViewModel(
+                                    image: challengeVM.challenge.challengeImage,
+                                    video: challengeVM.challenge.challengeVideoURL,
+                                    title: challengeVM.challenge.wrappedChallengeTitle,
+                                    subTitle: challengeVM.challenge.wrappedChallengeDescription,
+                                    titleColor: self.cellColors[index % self.cellColors.count],
+                                    isCompleted: challengeVM.isSubCompleted
+                                )
                             )
-                        )
-                        .onTapGesture {
-                            challengeVM.onTap?()
+                            .onTapGesture {
+                                challengeVM.onTap?()
+                            }
+                            .frame(width: UIScreen.main.bounds.width - 44)
+                            .shadow(color: .black.opacity(0.1), radius: 3.5, x: 0, y: 2)
+                            .padding(.top, 8)
                         }
-                        .frame(width: UIScreen.main.bounds.width - 44)
-                        .shadow(color: .black.opacity(0.1), radius: 3.5, x: 0, y: 2)
-                        .padding(.top, 8)
+                        .frame(width: UIScreen.main.bounds.width)
                     }
-                    .frame(width: UIScreen.main.bounds.width)
-                    
-                    NavigationLink(
-                        destination: ChallengeDetailsView(challenge: viewModel.selectedChallenge).navigationBarBackButtonHidden(),
-                        isActive: self.$viewModel.navigateToDetails,
-                        label: {
-                            Text("")
-                        })
                 }
+
+                NavigationLink(
+                    destination: ChallengeDetailsView(challenge: viewModel.selectedChallenge).navigationBarBackButtonHidden(),
+                    isActive: self.$viewModel.navigateToDetails,
+                    label: {
+                        Text("")
+                    })
                 .onBackSwipe {
                     presentationMode.wrappedValue.dismiss()
                 }
