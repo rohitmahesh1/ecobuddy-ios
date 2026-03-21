@@ -1,0 +1,80 @@
+name: iOS CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: macos-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Create placeholder Firebase config
+        run: |
+          cat > eco-buddy-ios/GoogleService-Info.plist <<'PLIST'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>API_KEY</key>
+            <string>CI_PLACEHOLDER</string>
+            <key>GCM_SENDER_ID</key>
+            <string>000000000000</string>
+            <key>PLIST_VERSION</key>
+            <string>1</string>
+            <key>BUNDLE_ID</key>
+            <string>com.cleanairmi.eco-health-ios</string>
+            <key>PROJECT_ID</key>
+            <string>ci-placeholder</string>
+            <key>STORAGE_BUCKET</key>
+            <string>ci-placeholder.appspot.com</string>
+            <key>IS_ADS_ENABLED</key>
+            <false/>
+            <key>IS_ANALYTICS_ENABLED</key>
+            <false/>
+            <key>IS_APPINVITE_ENABLED</key>
+            <false/>
+            <key>IS_GCM_ENABLED</key>
+            <false/>
+            <key>IS_SIGNIN_ENABLED</key>
+            <false/>
+            <key>GOOGLE_APP_ID</key>
+            <string>1:000000000000:ios:0000000000000000000000</string>
+          </dict>
+          </plist>
+          PLIST
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Select an available iPhone simulator
+        run: |
+          SIMULATOR_ID=$(xcrun simctl list devices available | grep -m 1 "iPhone" | grep -oE '[A-F0-9-]{36}')
+
+          if [ -z "$SIMULATOR_ID" ]; then
+            echo "No available iPhone simulator found."
+            exit 1
+          fi
+
+          echo "SIMULATOR_ID=$SIMULATOR_ID" >> "$GITHUB_ENV"
+
+      - name: Resolve Swift packages
+        run: |
+          xcodebuild -resolvePackageDependencies \
+            -project eco-buddy-ios.xcodeproj \
+            -scheme eco-buddy-ios
+
+      - name: Run tests
+        env:
+          CI: "true"
+        run: |
+          xcodebuild test \
+            -project eco-buddy-ios.xcodeproj \
+            -scheme eco-buddy-ios \
+            -destination "platform=iOS Simulator,id=$SIMULATOR_ID" \
+            CODE_SIGNING_ALLOWED=NO
