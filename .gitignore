@@ -1,0 +1,7 @@
+# Local app secrets
+eco-buddy-ios/GoogleService-Info.plist
+
+# Xcode user state
+xcuserdata/
+*.xcuserdatad
+*.xcuserstate
