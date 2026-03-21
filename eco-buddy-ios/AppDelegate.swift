@@ -12,7 +12,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
       FirebaseApp.configure()
-      print("Storage URL: \(PersistentStorage.shared.getSQLiteFileURL() as Any)")
+#if DEBUG
+      if let storeURL = PersistentStorage.shared.getSQLiteFileURL() {
+          print("Storage URL: \(storeURL)")
+      }
+#endif
       return true
   }
 }
