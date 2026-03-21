@@ -244,6 +244,24 @@ struct PopupView: View {
                     
                     if allTaskDone {
                         Button {
+                            self.onShareTap?()
+                        } label: {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 4)
+                                    .frame(height: 40)
+                                    .foregroundStyle(Color.blue)
+                                
+                                HStack(spacing: 6) {
+                                    Image(systemName: "square.and.arrow.up")
+                                        .foregroundStyle(Color.white)
+                                    Text("Share")
+                                        .font(.gilroySemiBold(16))
+                                        .foregroundStyle(Color.white)
+                                }
+                            }
+                        }
+                        
+                        Button {
                             self.onInstaShare?()
                         } label: {
                             ZStack {
@@ -253,7 +271,7 @@ struct PopupView: View {
                                 
                                 HStack(spacing: 6) {
                                     Image("icon.instagram")
-                                    Text("Share")
+                                    Text("Share to Instagram")
                                         .font(.gilroySemiBold(16))
                                         .foregroundStyle(Color.white)
                                 }
