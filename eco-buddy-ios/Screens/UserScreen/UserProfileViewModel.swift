@@ -24,10 +24,10 @@ class UserProfileViewModel: ObservableObject {
     @Published var navigateToDetails = false
     @Published var navigateToEditProfile = false
     
-    private let persistantStorage: PersistantStorage = PersistantStorage()
+    private let persistentStorage: PersistentStorage = PersistentStorage()
     
     private func getCompletedChallenges() {
-        let challenges = persistantStorage.getChallenges()
+        let challenges = persistentStorage.getChallenges()
         let filteredChallenges = challenges.filter({ $0.isCompleted })
         
         self.challengesVM = filteredChallenges.map { challenge in

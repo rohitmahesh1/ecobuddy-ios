@@ -101,7 +101,7 @@ struct GreetingView: View, KeyboardReadable {
                                 self.validationDone = true
                                 self.showAlert = true
                             } else {
-                                PersistantStorage.shared.loadAllData { error in
+                                PersistentStorage.shared.loadAllData { error in
                                     guard error == nil else { return }
                                     self.userName = txtName
                                     self.profileImage =
@@ -119,7 +119,7 @@ struct GreetingView: View, KeyboardReadable {
                 if !self.validationDone {
                     Alert(title: Text("Name can't be empty"), dismissButton: .cancel())
                 } else {
-                    Alert(title: Text("Name changed successfully"), dismissButton: .default(Text("Ok"), action: {
+                    Alert(title: Text("Name changed successfully"), dismissButton: .default(Text("OK"), action: {
                         self.userName = txtName
                     }))
                 }
@@ -169,4 +169,3 @@ struct GreetingView: View, KeyboardReadable {
 #Preview {
     GreetingView(isEditProfile: false)
 }
-

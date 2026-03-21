@@ -24,7 +24,7 @@ struct ChallengeDetailsView: View {
     @State var showPopup: Bool = false
     
     var challenge: Challenge?
-    private var persistantStorage: PersistantStorage
+    private var persistentStorage: PersistentStorage
     
     @State var subChallenges: [SubChallengeVM] = []
     @State var selectedSubChallenge: SubChallenge?
@@ -32,9 +32,9 @@ struct ChallengeDetailsView: View {
     @ObservedObject var imageViewModel = SDWebImageViewModel()
     
     
-    init(persistantStorage: PersistantStorage = PersistantStorage.shared, challenge: Challenge?, isPledge: Bool = false) {
+    init(persistentStorage: PersistentStorage = PersistentStorage.shared, challenge: Challenge?, isPledge: Bool = false) {
         self.isPledge = isPledge
-        self.persistantStorage = persistantStorage
+        self.persistentStorage = persistentStorage
         self.challenge = challenge
     }
     
@@ -53,7 +53,7 @@ struct ChallengeDetailsView: View {
     
     func completeChallenge() {
         guard let challenge else { return }
-        self.persistantStorage.editChallenge(challenge, isDone: isAllTaskDone) {
+        self.persistentStorage.editChallenge(challenge, isDone: isAllTaskDone) {
             print("Edited Challenge")
         }
     }
@@ -62,7 +62,7 @@ struct ChallengeDetailsView: View {
         guard let challenge = challenge else { return }
         let subChallengeIds = challenge.subChallengeIds
         
-        let subChallenges = persistantStorage.getSubChallenges().filter { subChallenge in
+        let subChallenges = persistentStorage.getSubChallenges().filter { subChallenge in
             subChallengeIds.contains(subChallenge.wrappedSubChallengeId)
         }
         
@@ -71,8 +71,8 @@ struct ChallengeDetailsView: View {
                 subChallenge: subChallenge,
                 onTap: {
                     self.selectedSubChallenge = subChallenge
-                    self.persistantStorage.editSubTask(subChallenge, isDone: subChallenge.challengeStatus) {
-                        self.persistantStorage.editChallenge(challenge, isDone: self.isAllTaskDone) {
+                    self.persistentStorage.editSubTask(subChallenge, isDone: subChallenge.challengeStatus) {
+                        self.persistentStorage.editChallenge(challenge, isDone: self.isAllTaskDone) {
                             print("Edited challenge and sub challenge completion")
                             self.getSubChallenges()
                         }
@@ -234,7 +234,7 @@ struct PopupView: View {
                     .padding(.top, 18)
                     .foregroundStyle(Color.greenMain)
                 
-                Text(!allTaskDone ? "You are on right track! \n Complete whole challenges!" : title)
+                Text(!allTaskDone ? "You are on the right track! \nComplete the whole challenge!" : title)
                     .font(.gilroyMedium(16))
                     .foregroundColor(Color(red: 0.51, green: 0.57, blue: 0.63))
                     .multilineTextAlignment(.center)
@@ -271,7 +271,7 @@ struct PopupView: View {
                                 .frame(height: 40)
                                 .foregroundStyle(allTaskDone ? Color(red: 0.93, green: 0.93, blue: 0.93) : .blue)
                             
-                            Text(!allTaskDone ? "Ok" : "Done")
+                            Text(!allTaskDone ? "OK" : "Done")
                                 .font(.gilroySemiBold(16))
                                 .foregroundStyle(allTaskDone ? Color(red: 0.21, green: 0.21, blue: 0.21) : .white)
                         }
@@ -307,7 +307,7 @@ class SDWebImageViewModel: ObservableObject {
         if let challengeImage = challenge?.challengeImage {
             image = challengeImage
         } else {
-            image = challenge?.challengeVideoURL?.convertUrl?.extractVideoID()?.thumnailURL.convertUrl
+            image = challenge?.challengeVideoURL?.convertUrl?.extractVideoID()?.thumbnailURL.convertUrl
         }
         SDWebImageManager.shared.loadImage(with: image) { _, _, _ in
         } completed: { image, data, error, _, _, _ in

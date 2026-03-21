@@ -17,7 +17,7 @@ class ExplorerViewModel: ObservableObject {
     }
  
     
-    let persistantStorage: PersistantStorage
+    let persistentStorage: PersistentStorage
     var category: ChallengeCategory?
     
     var screenTitle: String {
@@ -28,17 +28,17 @@ class ExplorerViewModel: ObservableObject {
     @Published var challengesVM: [ChallengeVM] = []
     @Published var selectedChallenge: Challenge?
     
-    init(category: ChallengeCategory? = nil, persistantStorage: PersistantStorage = PersistantStorage.shared) {
+    init(category: ChallengeCategory? = nil, persistentStorage: PersistentStorage = PersistentStorage.shared) {
         self.category = category
-        self.persistantStorage = persistantStorage
+        self.persistentStorage = persistentStorage
     }
     
     func fetchChallenges() {
-        let challenges = persistantStorage.getChallenges()
+        let challenges = persistentStorage.getChallenges()
         
         self.challengesVM = challenges.map({ challenge in
             let subChallengeIds = challenge.subChallengeIds
-            let subChallenges = persistantStorage.getSubChallenges().filter { subChallenge in
+            let subChallenges = persistentStorage.getSubChallenges().filter { subChallenge in
                 subChallengeIds.contains(subChallenge.wrappedSubChallengeId)
             }
             let allDone = subChallenges.allSatisfy { $0.challengeStatus } && !subChallenges.isEmpty

@@ -15,13 +15,13 @@ struct APIError: Error {
 }
 
 enum ServerMessage: String {
-    case veriryEmail = "VERIFY_EMAIL"
+    case verifyEmail = "VERIFY_EMAIL"
     case userNotFound = "USER_NOT_FOUND"
     case unsupported
     
     var text: String {
         switch self {
-        case .veriryEmail:
+        case .verifyEmail:
             return "Please verify your email"
         case .userNotFound:
             return "User is not found in the database"
@@ -58,7 +58,7 @@ enum AppError: Error {
         case .serverMessage(let message):
             return message.text
         case .apiError(let error):
-            var message = "Error occured during calling endpoind: \(error.httpMethod) \(error.endpoint)"
+            var message = "Error occurred while calling endpoint: \(error.httpMethod) \(error.endpoint)"
             message += "\n\(error.response)"
             return message
         case .firebaseLimitation(let message):

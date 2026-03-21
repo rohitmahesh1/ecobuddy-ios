@@ -38,7 +38,7 @@ struct ChallengeCategoryData {
     
     static let categories: [Category] = [
         Category(id: "1", categoryTitle: "Clean Air: Challenge Yourself to Breathe Easy", categoryDescription: "Take on fun challenges that promote clean air and healthy living", challengeIds: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]),
-        Category(id: "2", categoryTitle: "Healthy Living: Pledge for a healthier you", categoryDescription: "Choose eco-friendly actions, one pledge at a time", challengeIds: ["11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"]),
+        Category(id: "2", categoryTitle: "Healthy Living: Pledge for a Healthier You", categoryDescription: "Choose eco-friendly actions, one pledge at a time", challengeIds: ["11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"]),
         Category(id: "3", categoryTitle: "Awareness - Your guide to Environmental Insights", categoryDescription: "Explore topics like pollution and asthma. Bridge the gap from knowledge to action", challengeIds: ["23", "24", "25", "26", "27", "28", "29", "30", "31", "32"])
     ]
 }
@@ -103,8 +103,8 @@ struct ChallengesData {
         
         ChallengeLocal (
             id: "6",
-            challengeTitle: "Air Quality monitoring challenge",
-            challengeDescription: "Become an air quality awareness expert! Check your Air Quality Index (AQI) daily and share your observations on social media with #AirQualityMI and raise awareness about the importance of clean air in Michigan",
+            challengeTitle: "Air Quality Monitoring Challenge",
+            challengeDescription: "Become an air quality awareness expert! Check your Air Quality Index (AQI) daily, share your observations on social media with #AirQualityMI, and raise awareness about the importance of clean air in Michigan.",
             challengeImage: "https://res.cloudinary.com/duiw0a1mr/image/upload/v1696979799/Ecobuddy/MI-AirQuality_Monitoring_Challenge_-6_bfmokl.png",
             subChallengeIds:  ["19", "20", "21"]
         ),
@@ -137,7 +137,7 @@ struct ChallengesData {
             id: "10",
             challengeTitle: "Be a Changemaker Challenge",
             challengeDescription: """
-    Create a social media post about an environmental issue you care about that gets people thinking. Every like and share is more than just a click – it's a way to build a community of change-makers. Are you ready to make a difference? Let's come together for a better future, one post at a time. Who's ready to be a Changemaker? Let the campaign begin!"
+    Create a social media post about an environmental issue you care about that gets people thinking. Every like and share is more than just a click - it's a way to build a community of changemakers. Are you ready to make a difference? Let's come together for a better future, one post at a time. Who's ready to be a changemaker? Let the campaign begin!
     
     Healthy Living in Pure Michigan
     Make a commitment to take actions that benefit your health and environment at the same time! Here's how to participate: Choose a healthy and eco-friendly action you pledge to do. Share your pledge on social media using #HealthyMILiving. Tag one of your friends to join in and make their pledges too! Together, let's create a healthier world, one pledge at a time! Can we count on you to take the pledge? 🌿🌎
@@ -155,14 +155,14 @@ struct ChallengesData {
         ChallengeLocal(
             id: "12",
             challengeTitle: "Outdoor Activities",
-            challengeDescription: "Explore Michigan's nature by hiking, biking, or kayaking in state parks and recreational areas. Enjoying the outdoors not only benefits your health but also supports conservation efforts and promotes eco-tourism n Michigan.",
+            challengeDescription: "Explore Michigan's nature by hiking, biking, or kayaking in state parks and recreational areas. Enjoying the outdoors not only benefits your health but also supports conservation efforts and promotes eco-tourism in Michigan.",
             challengeImage: "https://res.cloudinary.com/duiw0a1mr/image/upload/v1696979803/Ecobuddy/OutdoorActivities-Pledge2_ekyq4q.png"
         ),
         
         ChallengeLocal(
             id: "13",
             challengeTitle: "Reduce Energy Consumption",
-            challengeDescription: "Turn of lights and appliances when not in use to reduce energy consumption and decrease the environmental impact of energy production.",
+            challengeDescription: "Turn off lights and appliances when not in use to reduce energy consumption and decrease the environmental impact of energy production.",
             challengeImage: "https://res.cloudinary.com/duiw0a1mr/image/upload/v1695773225/Ecobuddy/CleanenvironmentPledge.png"
         ),
         
@@ -176,7 +176,7 @@ struct ChallengesData {
         ChallengeLocal(
             id: "15",
             challengeTitle: "Native Plant Gardening",
-            challengeDescription: "Grow native Michigan plants. They require less water, support local wildlife, and help preserve the Michigan’s natural ecosystem.",
+            challengeDescription: "Grow native Michigan plants. They require less water, support local wildlife, and help preserve Michigan's natural ecosystem.",
             challengeImage: "https://res.cloudinary.com/duiw0a1mr/image/upload/v1696979804/Ecobuddy/NativePlantGardening-Pledge-5_a5xmom.png"
         ),
         
@@ -190,7 +190,7 @@ struct ChallengesData {
         ChallengeLocal(
             id: "17",
             challengeTitle: "Reduce, Reuse, Recycle",
-            challengeDescription: "Practice the three Rs – Reduce, Reuse, and Recycle. Minimize waste by buying products with less packaging, reusing items like glass jars and shopping bags, and recycling materials according to  Michigan guidelines.",
+            challengeDescription: "Practice the three Rs - Reduce, Reuse, and Recycle. Minimize waste by buying products with less packaging, reusing items like glass jars and shopping bags, and recycling materials according to Michigan guidelines.",
             challengeImage: "https://res.cloudinary.com/duiw0a1mr/image/upload/v1696979802/Ecobuddy/Reduce_Reuse_Recycle-Pledge7_lqt3vm.jpg"
         ),
         
@@ -204,14 +204,14 @@ struct ChallengesData {
         ChallengeLocal(
             id: "19",
             challengeTitle: "Reduce Meat Consumption",
-            challengeDescription: "Choose more plant-based meals into your diet if possible. Reducing meat consumption can lower your risk of certain health issues and reduce the environmental impact associated with meat production. How about meatless Mondays? May be Vegan Wednesdays?",
+            challengeDescription: "Choose more plant-based meals for your diet if possible. Reducing meat consumption can lower your risk of certain health issues and reduce the environmental impact associated with meat production. How about Meatless Mondays? Maybe Vegan Wednesdays?",
             challengeImage: "https://res.cloudinary.com/duiw0a1mr/image/upload/v1696979801/Ecobuddy/ReduceMeatConsumption-Pledge9_udpxew.png"
         ),
         
         ChallengeLocal(
             id: "20",
             challengeTitle: "Volunteer for Clean-up Events",
-            challengeDescription: "Participate in clean-up events for places like Rouge River, Detroit River or one of Michigan’s many beaches. Not enough time? How about this - whenever you're out walking to the mailbox, going to the store or walking through a parking lot, make it a game to pick up at least one piece of litter you spot. But that's not all – score extra eco-points by tossing it in the right bin, be it recycling or trash. This hands-on effort not only improves the environment but also provides physical activity for your health.",
+            challengeDescription: "Participate in clean-up events for places like the Rouge River, the Detroit River, or one of Michigan's many beaches. Not enough time? How about this: whenever you're out walking to the mailbox, going to the store, or walking through a parking lot, make it a game to pick up at least one piece of litter you spot. But that's not all - score extra eco-points by tossing it in the right bin, whether it's recycling or trash. This hands-on effort not only improves the environment but also provides physical activity for your health.",
             challengeImage: "https://res.cloudinary.com/duiw0a1mr/image/upload/v1696979801/Ecobuddy/VolunteerForCleanupEvents-Pledge-10_qf6764.png"
         ),
         
@@ -221,7 +221,7 @@ struct ChallengesData {
             challengeDescription:  "If your budget allows, opt for electric or hybrid vehicles for commuting. These modes of transportation reduce greenhouse gas emissions and improve air quality.",
             challengeImage: "https://res.cloudinary.com/duiw0a1mr/image/upload/v1696979799/Ecobuddy/UseEcoFriendlyTransportation-Pledge11_mvclvy.png"
         ),
-        //NEed to fill imageurl
+        // Need to fill image URL
         ChallengeLocal(
             id: "22",
             challengeTitle: "Proper E-Waste Disposal",
@@ -246,7 +246,7 @@ struct ChallengesData {
         ChallengeLocal(
             id: "25",
             challengeTitle: "How to purify air quality with plants",
-            challengeDescription: "Purifying air quality with plants is a natural and effective way to enhance the environment in homes and offices. Certain houseplants, such as snake plants, spider plants, and peace lilies, have been shown to absorb indoor pollutants like formaldehyde, benzene, and ammonia, thus improving air quality. These plants work by taking in these harmful substances through their leaves and roots and converting them into oxygen and water vapor. By strategically placing these air-purifying plants throughout indoor spaces, individuals can create a healthier atmosphere, reducing the risk of respiratory issues and promoting overall well-being while adding a touch of natural beauty to their surroundings..",
+            challengeDescription: "Purifying air quality with plants is a natural and effective way to enhance the environment in homes and offices. Certain houseplants, such as snake plants, spider plants, and peace lilies, have been shown to absorb indoor pollutants like formaldehyde, benzene, and ammonia, thus improving air quality. These plants work by taking in these harmful substances through their leaves and roots and converting them into oxygen and water vapor. By strategically placing these air-purifying plants throughout indoor spaces, individuals can create a healthier atmosphere, reducing the risk of respiratory issues and promoting overall well-being while adding a touch of natural beauty to their surroundings.",
            videoURL: "https://www.youtube.com/watch?v=lPNYdSZRSdg"
         ),
         
@@ -280,7 +280,7 @@ struct ChallengesData {
         
         ChallengeLocal(
             id: "30",
-            challengeTitle: "Small town michigan students are fundraising to add 30 kw of solar to their school",
+            challengeTitle: "Small-town Michigan students are fundraising to add 30 kW of solar to their school",
             challengeDescription: "Small-town Michigan students are taking an inspiring initiative by fundraising to add 30 kW of solar power to their school. Their dedication to renewable energy not only reflects a commitment to a greener future but also showcases the potential of grassroots efforts in rural communities. By harnessing the power of solar panels, these students are not only reducing the school's carbon footprint but also providing valuable educational opportunities for their peers, demonstrating the practicality of sustainable energy solutions. This endeavor not only benefits the environment but also instills a sense of environmental stewardship and civic engagement among the younger generation, demonstrating the positive impact that community-driven renewable energy projects can have in shaping a sustainable and eco-conscious future.",
            videoURL: "https://www.youtube.com/watch?v=2IYvvzjSDrg"
         ),
@@ -319,7 +319,7 @@ struct SubChallengesData {
         SubChallengeLocal(id: "11", title: "Check local air quality at https://www.airnow.gov/ and make informed choices about outdoor activities and possible health impacts."),
         SubChallengeLocal(id: "12", title: "Carpool to School: Take the bus or share the ride to school with your friend at least one week."),
         SubChallengeLocal(id: "13", title: "Bike to School: Do one better and choose to bike to school instead of driving or taking the bus. Enjoy the exercise and eco-friendly commute."),
-        SubChallengeLocal(id: "14", title: "Walk to Your Local ice cream store: Instead of driving, take a leisurely walk to your local ice cream store. Enjoy the fresh air and exercise while reducing your carbon footprint."),
+        SubChallengeLocal(id: "14", title: "Walk to Your Local Ice Cream Store: Instead of driving, take a leisurely walk to your local ice cream store. Enjoy the fresh air and exercise while reducing your carbon footprint."),
         SubChallengeLocal(id: "15", title: "Skip the Drive and Walk to Your Friend's House: Next time you plan to visit a friend who lives nearby, leave the car at home and walk to their house. It's a healthy way to get there while helping the environment."),
         SubChallengeLocal(id: "16", title: "Visit a local Michigan Nursery or Garden Center to get an indoor plant."),
         SubChallengeLocal(id: "17", title: "Set up and care for your Plant: Find the perfect spot in your home for your new indoor plant, water it, provide it with adequate sunlight."),

@@ -60,7 +60,7 @@ struct CleanEnvCardView: View {
                             }
                         }
                 } else {
-                    WebImage(url: viewModel.video?.convertUrl?.extractVideoID()?.thumnailURL.convertUrl)
+                    WebImage(url: viewModel.video?.convertUrl?.extractVideoID()?.thumbnailURL.convertUrl)
                         .resizable()
                         .placeholder(content: {
                             ProgressView()
@@ -127,9 +127,8 @@ struct CleanEnvCardView: View {
         viewModel: CardViewModel(
             image: URL(string: ""),
             title: "Join the Fresh Air Fitness Challenge",
-            subTitle: "Step outside, get active, and breathein that clean...",
+            subTitle: "Step outside, get active, and breathe in that clean...",
             titleColor: .ecoPink, isCompleted: false
         )
     )
 }
-

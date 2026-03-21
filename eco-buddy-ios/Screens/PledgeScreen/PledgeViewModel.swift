@@ -16,22 +16,22 @@ class PledgeViewModel: ObservableObject {
         var isSubCompleted: Bool
     }
     
-    private var persistantStorage: PersistantStorage
+    private var persistentStorage: PersistentStorage
     
     @Published var navigateToDetails = false
     @Published var challengesVM: [ChallengeVM] = []
     @Published var selectedChallenge: Challenge?
     
     
-    init(persistantStorage: PersistantStorage = PersistantStorage.shared) {
-        self.persistantStorage = persistantStorage
+    init(persistentStorage: PersistentStorage = PersistentStorage.shared) {
+        self.persistentStorage = persistentStorage
     }
     
     private func getChallenges() {
-        guard let category = self.persistantStorage.getCategories().filter({ $0.categoryId == "2" }).first else { return }
+        guard let category = self.persistentStorage.getCategories().filter({ $0.categoryId == "2" }).first else { return }
         
        
-        let challenges = persistantStorage.getChallenges()
+        let challenges = persistentStorage.getChallenges()
         let filteredChallenges = challenges.filter({ challenge in
             category.challengeIds.contains(challenge.wrappedChallengeId)
         }).prefix(5)

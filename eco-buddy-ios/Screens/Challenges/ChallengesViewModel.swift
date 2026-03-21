@@ -16,7 +16,7 @@ class ChallengesViewModel: ObservableObject {
         var isSubCompleted: Bool
     }
     
-    let persistantStorage: PersistantStorage
+    let persistentStorage: PersistentStorage
     var category: ChallengeCategory?
     
     var screenTitle: String {
@@ -31,7 +31,7 @@ class ChallengesViewModel: ObservableObject {
     var screenDescription: String {
         switch category?.wrappedCategoryId {
             case "1": "Challenge Yourself to Breathe Easy"
-            case "2": "Pledge for a healthier you"
+            case "2": "Pledge for a Healthier You"
             case "3": "Your guide to Environmental Insights"
             default : ""
         }
@@ -41,14 +41,14 @@ class ChallengesViewModel: ObservableObject {
     @Published var challengesVM: [ChallengeVM] = []
     @Published var selectedChallenge: Challenge?
     
-    init(category: ChallengeCategory?, persistantStorage: PersistantStorage = PersistantStorage.shared) {
+    init(category: ChallengeCategory?, persistentStorage: PersistentStorage = PersistentStorage.shared) {
         self.category = category
-        self.persistantStorage = persistantStorage
+        self.persistentStorage = persistentStorage
     }
     
     func fetchChallenges() {
         guard let category else { return }
-        let challenges = persistantStorage.getChallenges()
+        let challenges = persistentStorage.getChallenges()
         let filteredChallenges = challenges.filter({ challenge in
             category.challengeIds.contains(challenge.wrappedChallengeId) && !challenge.isCompleted
         }).prefix(5)

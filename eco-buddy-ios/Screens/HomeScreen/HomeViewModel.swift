@@ -15,7 +15,7 @@ class HomeViewModel: ObservableObject {
         var onTap: (() -> ())?
     }
     
-    let persistantStorage: PersistantStorage
+    let persistentStorage: PersistentStorage
     
     @AppStorage("userName") var userName: String = ""
     @AppStorage("profileImage") var profileImage: String = ""
@@ -25,8 +25,8 @@ class HomeViewModel: ObservableObject {
     @Published var navigateToUserProfile = false
     @Published var selectedCategory: ChallengeCategory?
     
-    init(persistantStorage: PersistantStorage = PersistantStorage.shared) {
-        self.persistantStorage = persistantStorage
+    init(persistentStorage: PersistentStorage = PersistentStorage.shared) {
+        self.persistentStorage = persistentStorage
     }
     
     func loadCategories() {
@@ -34,7 +34,7 @@ class HomeViewModel: ObservableObject {
         let categoryIds = module.categoryIdsArray
         let categoryOrder = Dictionary(uniqueKeysWithValues: categoryIds.enumerated().map { ($1, $0) })
         
-        let filteredCategory = persistantStorage.getCategories().filter({ category in
+        let filteredCategory = persistentStorage.getCategories().filter({ category in
             categoryIds.contains(category.wrappedCategoryId)
         }).sorted {
             let leftOrder = categoryOrder[$0.wrappedCategoryId] ?? .max
@@ -54,7 +54,7 @@ class HomeViewModel: ObservableObject {
     }
     
     private func loadModule() -> Module? {
-        persistantStorage.getAllModules().first
+        persistentStorage.getAllModules().first
     }
     
     

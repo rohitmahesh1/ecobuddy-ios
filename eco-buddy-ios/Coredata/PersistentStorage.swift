@@ -1,5 +1,5 @@
 //
-//  PersistantStorage.swift
+//  PersistentStorage.swift
 //  eco-buddy-ios
 //
 //  Created by Rohit Mahesh on 10/10/23.
@@ -9,8 +9,8 @@ import Foundation
 import CoreData
 
 
-class PersistantStorage {
-    static let shared = PersistantStorage()
+class PersistentStorage {
+    static let shared = PersistentStorage()
     
     let container: NSPersistentContainer
     
@@ -27,7 +27,7 @@ class PersistantStorage {
         
         container.loadPersistentStores{ (storeDescription, error) in
             if let error = error as NSError? {
-                fatalError("Unresolve Error: \(error)")
+                fatalError("Unresolved Error: \(error)")
             }
         }
     }
@@ -138,7 +138,7 @@ class PersistantStorage {
 }
 
 
-extension PersistantStorage {
+extension PersistentStorage {
     private func saveContext(_ completion: @escaping completionHandler) {
         do {
             if self.context.hasChanges {

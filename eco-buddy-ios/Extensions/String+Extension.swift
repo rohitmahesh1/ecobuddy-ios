@@ -9,7 +9,7 @@ import Foundation
 
 
 extension String {
-    var thumnailURL: String {
+    var thumbnailURL: String {
         return "http://img.youtube.com/vi/\(self)/0.jpg"
     }
 }
