@@ -32,11 +32,14 @@ class HomeViewModel: ObservableObject {
     func loadCategories() {
         guard let module = self.loadModule() else { return }
         let categoryIds = module.categoryIdsArray
+        let categoryOrder = Dictionary(uniqueKeysWithValues: categoryIds.enumerated().map { ($1, $0) })
         
         let filteredCategory = persistantStorage.getCategories().filter({ category in
             categoryIds.contains(category.wrappedCategoryId)
         }).sorted {
-            $0.categoryId ?? "" < $1.categoryId ?? ""
+            let leftOrder = categoryOrder[$0.wrappedCategoryId] ?? .max
+            let rightOrder = categoryOrder[$1.wrappedCategoryId] ?? .max
+            return leftOrder < rightOrder
         }
         
         self.cardViewModel = filteredCategory.map({ category in
@@ -51,7 +54,7 @@ class HomeViewModel: ObservableObject {
     }
     
     private func loadModule() -> Module? {
-        persistantStorage.getAllModules().filter({ $0.moduleTitle == "Home" }).first
+        persistantStorage.getAllModules().first
     }
     
     

@@ -101,7 +101,8 @@ struct GreetingView: View, KeyboardReadable {
                                 self.validationDone = true
                                 self.showAlert = true
                             } else {
-                                PersistantStorage.shared.loadAllData {
+                                PersistantStorage.shared.loadAllData { error in
+                                    guard error == nil else { return }
                                     self.userName = txtName
                                     self.profileImage =
                                     self.profileImages.shuffled().randomElement()?.name ?? ""
@@ -168,5 +169,4 @@ struct GreetingView: View, KeyboardReadable {
 #Preview {
     GreetingView(isEditProfile: false)
 }
-
 

@@ -14,7 +14,7 @@ class PersistantStorage {
     
     let container: NSPersistentContainer
     
-    typealias completionHandler = (((Error?) -> ()))
+    typealias completionHandler = (Error?) -> Void
     
     var context: NSManagedObjectContext {
         return self.container.viewContext
@@ -43,141 +43,117 @@ class PersistantStorage {
     }
     
     
-    func loadAllData(completion: @escaping (() -> Void)) {
+    func loadAllData(completion: @escaping completionHandler) {
         self.loadModules { error in
-            if let _ = error { print( "Error saving modules" ) } else {
-                self.loadCategories { error in
-                    if let  _ = error { print("Error saving categories" )} else {
-                        self.loadChallenges { error in
-                            if let  _ = error { print("Error saving challenges")} else {
-                                self.loadSubChallenges { error in
-                                    if let  _ = error { print("Error loading subchallenges")} else {
-                                        completion()
-                                    }
-                                }
-                            }
-                        }
-                    }
+            guard error == nil else { return completion(error) }
+            self.loadCategories { error in
+                guard error == nil else { return completion(error) }
+                self.loadChallenges { error in
+                    guard error == nil else { return completion(error) }
+                    self.loadSubChallenges(completion: completion)
                 }
             }
         }
     }
     
     private func loadModules(_ completion: @escaping completionHandler) {
-        
+        var modulesById = self.getAllModules().reduce(into: [String: Module]()) { partialResult, module in
+            partialResult[module.wrappedModuleId] = module
+        }
+
         for moduleLocal in ModuleData.modules {
-            let module = Module(context: context)
+            let module = modulesById[moduleLocal.id] ?? Module(context: context)
+            modulesById[moduleLocal.id] = module
             module.moduleId = moduleLocal.id
             module.moduleTitle = moduleLocal.title
             module.categoryIds = moduleLocal.categoryIds
             module.displayOrder = moduleLocal.displayOrder
         }
-        
-        do {
-            try self.context.save()
-        } catch {
-            print(error.localizedDescription)
-            DispatchQueue.main.async {
-                completion(error)
-            }
-        }
-        
-        DispatchQueue.main.async {
-            print("✅Modules loaded in DB")
-            completion(nil)
-        }
-        
+
+        self.saveContext(completion)
     }
     
     private func loadCategories(_ completion: @escaping completionHandler) {
-        
+        var categoriesById = self.getCategories().reduce(into: [String: ChallengeCategory]()) { partialResult, category in
+            partialResult[category.wrappedCategoryId] = category
+        }
+
         for categoryLocal in ChallengeCategoryData.categories {
-            let category = ChallengeCategory(context: self.context)
+            let category = categoriesById[categoryLocal.id] ?? ChallengeCategory(context: self.context)
+            categoriesById[categoryLocal.id] = category
             category.categoryId = categoryLocal.id
             category.categoryTitle = categoryLocal.categoryTitle
             category.categoryDescription = categoryLocal.categoryDescription
             category.challengesIds = categoryLocal.challengeIds
             category.displayOrder = categoryLocal.displayOrder
         }
-        
-        do {
-            try self.context.save()
-        } catch {
-            print(error.localizedDescription)
-            DispatchQueue.main.async {
-                completion(error)
-            }
-        }
-        
-        DispatchQueue.main.async {
-            print("✅Challenges loaded in DB")
-            completion(nil)
-        }
-        
+
+        self.saveContext(completion)
     }
     
     private func loadChallenges(_ completion: @escaping completionHandler) {
-        
+        var challengesById = self.getChallenges().reduce(into: [String: Challenge]()) { partialResult, challenge in
+            partialResult[challenge.wrappedChallengeId] = challenge
+        }
+
         for challengeLocal in ChallengesData.challenges {
-            let challenge = Challenge(context: self.context)
+            let challenge = challengesById[challengeLocal.id] ?? Challenge(context: self.context)
+            let isNewChallenge = challengesById[challengeLocal.id] == nil
+            challengesById[challengeLocal.id] = challenge
             challenge.challengeId = challengeLocal.id
             challenge.challengeTitle = challengeLocal.challengeTitle
             challenge.challengeDescription = challengeLocal.challengeDescription
-            challenge.challengeImage =  challengeLocal.challengeImage?.convertUrl
+            challenge.challengeImage = challengeLocal.challengeImage?.convertUrl
             challenge.challengeVideoURL = challengeLocal.videoURL
             challenge.displayOrder = challengeLocal.displayOrder
-            challenge.isCompleted = challengeLocal.isCompleted
-            if let challengeSubIds = challengeLocal.subChallengeIds {
-                challenge.subChallenges = challengeSubIds
-            }
-            
-            
-            do {
-                try self.context.save()
-            } catch {
-                DispatchQueue.main.async {
-                    completion(error)
-                    print(error.localizedDescription)
-                }
+            challenge.subChallenges = challengeLocal.subChallengeIds
+            if isNewChallenge {
+                challenge.isCompleted = challengeLocal.isCompleted
             }
         }
-        
-        DispatchQueue.main.async {
-            print("✅Challenges loaded in DB")
-            completion(nil)
-        }
-        
+
+        self.saveContext(completion)
     }
     
     private func loadSubChallenges(_ completion: @escaping completionHandler) {
-        
+        var subChallengesById = self.getSubChallenges().reduce(into: [String: SubChallenge]()) { partialResult, subChallenge in
+            partialResult[subChallenge.wrappedSubChallengeId] = subChallenge
+        }
+
         for subChallengeData in SubChallengesData.subChallenges {
-            let subTask = SubChallenge(context: self.context)
+            let subTask = subChallengesById[subChallengeData.id] ?? SubChallenge(context: self.context)
+            let isNewSubChallenge = subChallengesById[subChallengeData.id] == nil
+            subChallengesById[subChallengeData.id] = subTask
             subTask.subChallengeId = subChallengeData.id
             subTask.challengeTitle = subChallengeData.title
-            subTask.challengeStatus = subChallengeData.status
             subTask.displayOrder = subChallengeData.displayOrder
-            
-            do {
-                try self.context.save()
-            } catch {
-                DispatchQueue.main.async {
-                    completion(error)
-                    print(error.localizedDescription)
-                }
+            if isNewSubChallenge {
+                subTask.challengeStatus = subChallengeData.status
             }
         }
-        
-        DispatchQueue.main.async {
-            completion(nil)
-            print("✅Sub challenges loaded in DB")
-        }
+
+        self.saveContext(completion)
     }
     
 }
 
 
 extension PersistantStorage {
+    private func saveContext(_ completion: @escaping completionHandler) {
+        do {
+            if self.context.hasChanges {
+                try self.context.save()
+            }
+
+            DispatchQueue.main.async {
+                completion(nil)
+            }
+        } catch {
+            DispatchQueue.main.async {
+                completion(error)
+            }
+        }
+    }
 
     func getAllModules() -> [Module] {
         let request = Module.fetchRequest()
@@ -230,6 +206,7 @@ extension PersistantStorage {
     func editSubTask(_ subChallenge: SubChallenge, isDone: Bool, completion: (() -> ())) {
         let fetchRequest = SubChallenge.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "subChallengeId == %@", subChallenge.wrappedSubChallengeId)
+        fetchRequest.fetchLimit = 1
         
         do {
             guard let challengeToEdit = try container.viewContext.fetch(fetchRequest).first else { return }
@@ -244,6 +221,7 @@ extension PersistantStorage {
     func editChallenge(_ challenge: Challenge, isDone: Bool, completion: (() -> ())) {
         let fetchRequest = Challenge.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "challengeId == %@", challenge.wrappedChallengeId)
+        fetchRequest.fetchLimit = 1
         do {
             guard let challengeToEdit = try container.viewContext.fetch(fetchRequest).first else { return }
             challengeToEdit.isCompleted = isDone
