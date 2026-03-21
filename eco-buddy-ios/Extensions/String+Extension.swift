@@ -10,6 +10,6 @@ import Foundation
 
 extension String {
     var thumbnailURL: String {
-        return "http://img.youtube.com/vi/\(self)/0.jpg"
+        return "https://img.youtube.com/vi/\(self)/0.jpg"
     }
 }
