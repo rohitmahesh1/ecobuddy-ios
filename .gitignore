@@ -1,5 +1,6 @@
 # Local app secrets
 eco-buddy-ios/GoogleService-Info.plist
+.DS_Store
 
 # Xcode user state
 xcuserdata/
