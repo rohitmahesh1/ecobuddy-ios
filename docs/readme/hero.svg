@@ -1,0 +1,74 @@
+<svg width="1200" height="640" viewBox="0 0 1200 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="640" rx="36" fill="#F4FBF7"/>
+  <rect x="0" y="0" width="1200" height="640" rx="36" fill="url(#bg)"/>
+  <circle cx="1040" cy="92" r="96" fill="#DFF7EE"/>
+  <circle cx="1118" cy="176" r="56" fill="#D6F2FB"/>
+  <circle cx="945" cy="556" r="140" fill="#E8FBF1"/>
+
+  <text x="82" y="152" fill="#0B2B1A" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="700">
+    Eco Health
+  </text>
+  <text x="82" y="208" fill="#2F4A3C" font-family="Arial, Helvetica, sans-serif" font-size="28">
+    A SwiftUI iOS app that turns eco-health learning
+  </text>
+  <text x="82" y="244" fill="#2F4A3C" font-family="Arial, Helvetica, sans-serif" font-size="28">
+    into friendly challenges, pledges, and progress.
+  </text>
+
+  <rect x="82" y="304" width="168" height="52" rx="26" fill="#006F0B"/>
+  <text x="118" y="337" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">
+    SwiftUI + Core Data
+  </text>
+
+  <rect x="266" y="304" width="146" height="52" rx="26" fill="#009FC1"/>
+  <text x="305" y="337" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">
+    Local First
+  </text>
+
+  <rect x="428" y="304" width="132" height="52" rx="26" fill="#DF00E3"/>
+  <text x="462" y="337" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">
+    3 Main Flows
+  </text>
+
+  <rect x="698" y="72" width="332" height="520" rx="38" fill="#13291D"/>
+  <rect x="715" y="90" width="298" height="484" rx="28" fill="#F9FFFC"/>
+  <rect x="820" y="104" width="88" height="10" rx="5" fill="#CCE1D4"/>
+
+  <text x="748" y="150" fill="#183926" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">
+    Hello Rohit,
+  </text>
+  <text x="748" y="178" fill="#527267" font-family="Arial, Helvetica, sans-serif" font-size="15">
+    What would you like to see in today's environment?
+  </text>
+
+  <rect x="748" y="214" width="232" height="108" rx="24" fill="#FCE8FD"/>
+  <text x="772" y="252" fill="#3C2740" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">
+    Clean Air
+  </text>
+  <text x="772" y="282" fill="#5E5363" font-family="Arial, Helvetica, sans-serif" font-size="16">
+    Challenge yourself to breathe easy
+  </text>
+
+  <rect x="748" y="338" width="232" height="108" rx="24" fill="#E7F8ED"/>
+  <text x="772" y="376" fill="#23452D" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">
+    Healthy Living
+  </text>
+  <text x="772" y="406" fill="#486153" font-family="Arial, Helvetica, sans-serif" font-size="16">
+    Choose eco-friendly actions, one pledge at a time
+  </text>
+
+  <rect x="748" y="462" width="232" height="88" rx="24" fill="#E3F5FB"/>
+  <text x="772" y="500" fill="#174557" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">
+    Awareness
+  </text>
+  <text x="772" y="528" fill="#4B6974" font-family="Arial, Helvetica, sans-serif" font-size="16">
+    Bridge the gap from knowledge to action
+  </text>
+
+  <defs>
+    <linearGradient id="bg" x1="82" y1="44" x2="1132" y2="612" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F6FFF8"/>
+      <stop offset="1" stop-color="#EEF8FF"/>
+    </linearGradient>
+  </defs>
+</svg>
