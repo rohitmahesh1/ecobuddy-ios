@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PledgeView: View {
-    private var cellColors: [Color] = [.ecoPink, .ecoGreen, .ecoSkyBlue]
+    private let cellColors: [Color] = [.ecoPink, .ecoGreen, .ecoSkyBlue]
     
     @ObservedObject var viewModel = PledgeViewModel()
     
@@ -16,14 +16,14 @@ struct PledgeView: View {
     var body: some View {
         VStack {
             ScrollView {
-                ForEach(viewModel.challengesVM) { challengeVM in
+                ForEach(Array(viewModel.challengesVM.enumerated()), id: \.element.id) { index, challengeVM in
                     CleanEnvCardView(
                         viewModel: CardViewModel(
                             image: challengeVM.challenge.challengeImage,
                             video: challengeVM.challenge.challengeVideoURL,
                             title: challengeVM.challenge.wrappedChallengeTitle,
                             subTitle: challengeVM.challenge.wrappedChallengeDescription,
-                            titleColor: self.cellColors.randomElement()!,
+                            titleColor: self.cellColors[index % self.cellColors.count],
                             isCompleted: challengeVM.isSubCompleted
                         )
                     )
@@ -31,7 +31,7 @@ struct PledgeView: View {
                         challengeVM.onTap?()
                     }
                     .shadow(color: .black.opacity(0.1), radius: 3.5, x: 0, y: 2)
-                    .padding(.top, challengeVM.id == viewModel.challengesVM.first?.id ? 0 : 8)
+                    .padding(.top, index == 0 ? 0 : 8)
                     .padding([.leading, .trailing], 22)
                     
                 }
