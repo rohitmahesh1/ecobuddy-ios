@@ -10,7 +10,7 @@ import Foundation
 
 class ExplorerViewModel: ObservableObject {
     struct ChallengeVM: Identifiable {
-        var id = UUID()
+        let id: String
         var challenge: Challenge
         var isSubCompleted: Bool
         var onTap: (() -> Void)?
@@ -35,6 +35,7 @@ class ExplorerViewModel: ObservableObject {
     
     func fetchChallenges() {
         let challenges = persistentStorage.getChallenges()
+        self.selectedChallenge = nil
         
         self.challengesVM = challenges.map({ challenge in
             let subChallengeIds = challenge.subChallengeIds
@@ -44,6 +45,7 @@ class ExplorerViewModel: ObservableObject {
             let allDone = subChallenges.allSatisfy { $0.challengeStatus } && !subChallenges.isEmpty
             
             return ChallengeVM(
+                id: challenge.wrappedChallengeId,
                 challenge: challenge,
                 isSubCompleted: allDone,
                 onTap: {
