@@ -10,7 +10,7 @@ import Foundation
 class ChallengesViewModel: ObservableObject {
     
     struct ChallengeVM: Identifiable {
-        let id = UUID().uuidString
+        let id: String
         var challenge: Challenge
         var onTap: (() -> Void)?
         var isSubCompleted: Bool
@@ -47,15 +47,22 @@ class ChallengesViewModel: ObservableObject {
     }
     
     func fetchChallenges() {
-        guard let category else { return }
+        guard let category else {
+            self.challengesVM = []
+            self.selectedChallenge = nil
+            return
+        }
+
         let challenges = persistentStorage.getChallenges()
         let filteredChallenges = challenges.filter({ challenge in
             category.challengeIds.contains(challenge.wrappedChallengeId) && !challenge.isCompleted
-        }).prefix(5)
+        })
         
+        self.selectedChallenge = nil
         self.challengesVM = filteredChallenges.map({ challenge in
             
             return ChallengeVM(
+                id: challenge.wrappedChallengeId,
                 challenge: challenge,
                 onTap: {
                     self.selectedChallenge = challenge
