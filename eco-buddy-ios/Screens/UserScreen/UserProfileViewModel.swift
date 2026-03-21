@@ -10,7 +10,7 @@ import SwiftUI
 class UserProfileViewModel: ObservableObject {
     
     struct ChallengeVM: Identifiable {
-        var id = UUID()
+        let id: String
         var challenge: Challenge
         var isSubCompleted: Bool
         var onTap: (() -> Void)?
@@ -24,7 +24,11 @@ class UserProfileViewModel: ObservableObject {
     @Published var navigateToDetails = false
     @Published var navigateToEditProfile = false
     
-    private let persistentStorage: PersistentStorage = PersistentStorage()
+    private let persistentStorage: PersistentStorage
+
+    init(persistentStorage: PersistentStorage = PersistentStorage.shared) {
+        self.persistentStorage = persistentStorage
+    }
     
     private func getCompletedChallenges() {
         let challenges = persistentStorage.getChallenges()
@@ -32,13 +36,12 @@ class UserProfileViewModel: ObservableObject {
         
         self.challengesVM = filteredChallenges.map { challenge in
             return ChallengeVM(
+                id: challenge.wrappedChallengeId,
                 challenge: challenge,
                 isSubCompleted: challenge.isCompleted,
                 onTap: {
-                    /*
                     self.selectedChallenge = challenge
                     self.navigateToDetails = true
-                     */
                 }
             )
         }
