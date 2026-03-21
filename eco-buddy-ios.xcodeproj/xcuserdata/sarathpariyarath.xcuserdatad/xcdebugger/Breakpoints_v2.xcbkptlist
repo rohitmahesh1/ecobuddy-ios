@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "B2D59E4A-986D-4F94-8698-5E8F0BA7B6EC"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7C8EC72E-8B06-46FA-B2BB-DEF4FAD6FD87"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "eco-buddy-ios/Screens/ChallengeDetails/ChallengeDetailsView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "getSubChallenges()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "7C8EC72E-8B06-46FA-B2BB-DEF4FAD6FD87 - e0ddc2b27fd2bc44"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #1 () -&gt; () in closure #1 () -&gt; () in closure #2 (eco_buddy_ios.SubChallenge) -&gt; eco_buddy_ios.ChallengeDetailsView.SubChallengeVM in eco_buddy_ios.ChallengeDetailsView.getSubChallenges() -&gt; ()"
+                  moduleName = "eco-buddy-ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sarathpariyarath/Downloads/eco-buddy-ios/eco-buddy-ios/Screens/ChallengeDetails/ChallengeDetailsView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "73"
+                  endingLineNumber = "73"
+                  offsetFromSymbolStart = "68">
+               </Location>
+               <Location
+                  uuid = "7C8EC72E-8B06-46FA-B2BB-DEF4FAD6FD87 - e0ddc2b27fd2bc44"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #1 () -&gt; () in closure #1 () -&gt; () in closure #2 (eco_buddy_ios.SubChallenge) -&gt; eco_buddy_ios.ChallengeDetailsView.SubChallengeVM in eco_buddy_ios.ChallengeDetailsView.getSubChallenges() -&gt; ()"
+                  moduleName = "eco-buddy-ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sarathpariyarath/Downloads/eco-buddy-ios/eco-buddy-ios/Screens/ChallengeDetails/ChallengeDetailsView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "73"
+                  endingLineNumber = "73"
+                  offsetFromSymbolStart = "88">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Photo Library Access Warning</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fb</string>
+		<string>fbapi</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+		<string>fb-messenger-api</string>
+		<string>twitter</string>
+		<string>viber</string>
+		<string>whatsapp</string>
+		<string>wechat</string>
+		<string>line</string>
+		<string>instagram</string>
+		<string> instagram-stories</string>
+		<string>kakaotalk</string>
+		<string>mqq</string>
+		<string>vk</string>
+		<string>comgooglemaps</string>
+		<string>googlephotos</string>
+		<string>ha</string>
+		<string>yammer</string>
+	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>MochiyPopOne-Regular.ttf</string>
+		<string>Gilroy-Thin.ttf</string>
+		<string>Gilroy-Light.ttf</string>
+		<string>Gilroy-Regular.ttf</string>
+		<string>Gilroy-Bold.ttf</string>
+		<string>Gilroy-SemiBold.ttf</string>
+		<string>Gilroy-Medium.ttf</string>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22222" systemVersion="23A344" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Challenge" representedClassName="Challenge" syncable="YES">
+        <attribute name="challengeDescription" optional="YES" attributeType="String"/>
+        <attribute name="challengeId" optional="YES" attributeType="String"/>
+        <attribute name="challengeImage" optional="YES" attributeType="URI"/>
+        <attribute name="challengeTitle" optional="YES" attributeType="String"/>
+        <attribute name="challengeVIdeoURL" optional="YES" attributeType="String"/>
+        <attribute name="isCompleted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="subChallenges" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
+    </entity>
+    <entity name="ChallengeCategory" representedClassName="ChallengeCategory" syncable="YES">
+        <attribute name="categoryDescription" optional="YES" attributeType="String"/>
+        <attribute name="categoryId" optional="YES" attributeType="String" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
+        <attribute name="categoryTitle" optional="YES" attributeType="String"/>
+        <attribute name="challengesIds" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
+    </entity>
+    <entity name="Module" representedClassName="Module" syncable="YES">
+        <attribute name="categoryIds" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
+        <attribute name="moduleId" optional="YES" attributeType="String"/>
+        <attribute name="moduleTitle" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="SubChallenge" representedClassName="SubChallenge" syncable="YES">
+        <attribute name="challengeId" optional="YES" attributeType="String"/>
+        <attribute name="challengeStatus" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="challengeTitle" optional="YES" attributeType="String"/>
+    </entity>
+</model>
