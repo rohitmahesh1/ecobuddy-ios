@@ -33,13 +33,7 @@ class PersistentStorage {
     }
     
     func getSQLiteFileURL() -> URL? {
-        let fileManager = FileManager.default
-        if let documentsDirectory = fileManager.urls(for: .libraryDirectory, in: .userDomainMask).first {
-            let sqliteFileName = "DataModel.sqlite"
-            let sqliteFileURL = documentsDirectory.appendingPathComponent(sqliteFileName)
-            return sqliteFileURL
-        }
-        return nil
+        container.persistentStoreCoordinator.persistentStores.first?.url
     }
     
     
@@ -140,18 +134,34 @@ class PersistentStorage {
 
 extension PersistentStorage {
     private func saveContext(_ completion: @escaping completionHandler) {
+        context.perform {
+            do {
+                if self.context.hasChanges {
+                    try self.context.save()
+                }
+
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    completion(error)
+                }
+            }
+        }
+    }
+
+    private func saveViewContext(logContext: String, completion: (() -> ())? = nil) {
         do {
-            if self.context.hasChanges {
-                try self.context.save()
+            if context.hasChanges {
+                try context.save()
             }
 
             DispatchQueue.main.async {
-                completion(nil)
+                completion?()
             }
         } catch {
-            DispatchQueue.main.async {
-                completion(error)
-            }
+            print("Failed to \(logContext): \(error.localizedDescription)")
         }
     }
 
@@ -203,32 +213,42 @@ extension PersistentStorage {
         }
     }
     
-    func editSubTask(_ subChallenge: SubChallenge, isDone: Bool, completion: (() -> ())) {
-        let fetchRequest = SubChallenge.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "subChallengeId == %@", subChallenge.wrappedSubChallengeId)
-        fetchRequest.fetchLimit = 1
-        
-        do {
-            guard let challengeToEdit = try container.viewContext.fetch(fetchRequest).first else { return }
-            challengeToEdit.challengeStatus = !isDone
-            try container.viewContext.save()
-            completion()
-        } catch {
-            print(error.localizedDescription)
+    func editSubTask(_ subChallenge: SubChallenge, isDone: Bool, completion: (() -> ())? = nil) {
+        context.perform {
+            let fetchRequest = SubChallenge.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "subChallengeId == %@", subChallenge.wrappedSubChallengeId)
+            fetchRequest.fetchLimit = 1
+            
+            do {
+                guard let challengeToEdit = try self.context.fetch(fetchRequest).first else {
+                    print("Subchallenge not found for id: \(subChallenge.wrappedSubChallengeId)")
+                    return
+                }
+
+                challengeToEdit.challengeStatus = !isDone
+                self.saveViewContext(logContext: "update subchallenge \(subChallenge.wrappedSubChallengeId)", completion: completion)
+            } catch {
+                print("Failed to update subchallenge \(subChallenge.wrappedSubChallengeId): \(error.localizedDescription)")
+            }
         }
     }
     
-    func editChallenge(_ challenge: Challenge, isDone: Bool, completion: (() -> ())) {
-        let fetchRequest = Challenge.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "challengeId == %@", challenge.wrappedChallengeId)
-        fetchRequest.fetchLimit = 1
-        do {
-            guard let challengeToEdit = try container.viewContext.fetch(fetchRequest).first else { return }
-            challengeToEdit.isCompleted = isDone
-            try container.viewContext.save()
-            completion()
-        } catch {
-            print(error.localizedDescription)
+    func editChallenge(_ challenge: Challenge, isDone: Bool, completion: (() -> ())? = nil) {
+        context.perform {
+            let fetchRequest = Challenge.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "challengeId == %@", challenge.wrappedChallengeId)
+            fetchRequest.fetchLimit = 1
+            do {
+                guard let challengeToEdit = try self.context.fetch(fetchRequest).first else {
+                    print("Challenge not found for id: \(challenge.wrappedChallengeId)")
+                    return
+                }
+
+                challengeToEdit.isCompleted = isDone
+                self.saveViewContext(logContext: "update challenge \(challenge.wrappedChallengeId)", completion: completion)
+            } catch {
+                print("Failed to update challenge \(challenge.wrappedChallengeId): \(error.localizedDescription)")
+            }
         }
     }
 }
