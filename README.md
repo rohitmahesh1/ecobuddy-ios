@@ -19,10 +19,16 @@ Eco Health is a SwiftUI iOS app that turns eco-health education into approachabl
 ## Visual Tour
 
 <p align="center">
-  <img src="docs/readme/showcase.svg" alt="Recreated screen gallery for onboarding, home, challenge detail, and explore flows" width="100%" />
+  <img src="docs/readme/screen-onboarding.png" alt="Onboarding screen composed from bundled app assets" width="48%" />
+  <img src="docs/readme/screen-home.png" alt="Home screen composed from bundled app assets" width="48%" />
 </p>
 
-The gallery above uses recreated previews based on the current app UI and flow structure, since the repository did not include export-ready screenshots.
+<p align="center">
+  <img src="docs/readme/screen-detail.png" alt="Challenge detail screen composed from bundled app assets" width="48%" />
+  <img src="docs/readme/screen-explore.png" alt="Explore screen composed from bundled app assets" width="48%" />
+</p>
+
+The screen previews above are assembled from the real bundled app artwork, including the shipped backgrounds, logo, avatar set, tab icons, checkbox art, bubble tail, and animation frames.
 
 ## Product Snapshot
 
