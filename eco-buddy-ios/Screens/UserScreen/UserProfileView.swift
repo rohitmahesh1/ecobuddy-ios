@@ -9,9 +9,13 @@ import SwiftUI
 
 struct UserProfileView: View {
     
-    private var cellColors: [Color] = [.ecoPink, .ecoGreen, .ecoSkyBlue]
+    private let cellColors: [Color] = [.ecoPink, .ecoGreen, .ecoSkyBlue]
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @ObservedObject var viewModel = UserProfileViewModel()
+    @StateObject private var viewModel: UserProfileViewModel
+
+    init(viewModel: UserProfileViewModel = UserProfileViewModel()) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
     
     var body: some View {
         VStack {
