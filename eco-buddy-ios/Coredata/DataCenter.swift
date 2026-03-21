@@ -13,6 +13,10 @@ struct ModuleData {
         let id: String
         let title: String
         let categoryIds: [String]
+
+        var displayOrder: Int16 {
+            Int16(id) ?? 0
+        }
     }
     
     static let modules: [ModuleLocal] = [
@@ -26,6 +30,10 @@ struct ChallengeCategoryData {
         let categoryTitle: String
         let categoryDescription: String
         let challengeIds: [String]
+
+        var displayOrder: Int16 {
+            Int16(id) ?? 0
+        }
     }
     
     static let categories: [Category] = [
@@ -44,6 +52,10 @@ struct ChallengesData {
         var subChallengeIds: [String]? = nil
         var videoURL: String? = nil
         var isCompleted = false
+
+        var displayOrder: Int16 {
+            Int16(id) ?? 0
+        }
     }
     
     static let challenges: [ChallengeLocal] = [
@@ -333,6 +345,10 @@ struct SubChallengesData {
         let id: String
         let title: String
         var status: Bool = false
+
+        var displayOrder: Int16 {
+            Int16(id) ?? 0
+        }
     }
 }
 

@@ -22,6 +22,8 @@ class PersistantStorage {
     
     init() {
         container = NSPersistentContainer(name: "DataModel")
+        container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
+        container.viewContext.automaticallyMergesChangesFromParent = true
         
         container.loadPersistentStores{ (storeDescription, error) in
             if let error = error as NSError? {
@@ -68,6 +70,7 @@ class PersistantStorage {
             module.moduleId = moduleLocal.id
             module.moduleTitle = moduleLocal.title
             module.categoryIds = moduleLocal.categoryIds
+            module.displayOrder = moduleLocal.displayOrder
         }
         
         do {
@@ -94,6 +97,7 @@ class PersistantStorage {
             category.categoryTitle = categoryLocal.categoryTitle
             category.categoryDescription = categoryLocal.categoryDescription
             category.challengesIds = categoryLocal.challengeIds
+            category.displayOrder = categoryLocal.displayOrder
         }
         
         do {
@@ -121,6 +125,7 @@ class PersistantStorage {
             challenge.challengeDescription = challengeLocal.challengeDescription
             challenge.challengeImage =  challengeLocal.challengeImage?.convertUrl
             challenge.challengeVideoURL = challengeLocal.videoURL
+            challenge.displayOrder = challengeLocal.displayOrder
             challenge.isCompleted = challengeLocal.isCompleted
             if let challengeSubIds = challengeLocal.subChallengeIds {
                 challenge.subChallenges = challengeSubIds
@@ -148,9 +153,10 @@ class PersistantStorage {
         
         for subChallengeData in SubChallengesData.subChallenges {
             let subTask = SubChallenge(context: self.context)
-            subTask.challengeId = subChallengeData.id
+            subTask.subChallengeId = subChallengeData.id
             subTask.challengeTitle = subChallengeData.title
             subTask.challengeStatus = subChallengeData.status
+            subTask.displayOrder = subChallengeData.displayOrder
             
             do {
                 try self.context.save()
@@ -175,6 +181,7 @@ extension PersistantStorage {
 
     func getAllModules() -> [Module] {
         let request = Module.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "displayOrder", ascending: true)]
         do {
             let list = try container.viewContext.fetch(request)
             return list
@@ -186,6 +193,7 @@ extension PersistantStorage {
     
     func getCategories() -> [ChallengeCategory] {
         let request = ChallengeCategory.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "displayOrder", ascending: true)]
         do {
             let list = try container.viewContext.fetch(request)
             return list
@@ -197,6 +205,7 @@ extension PersistantStorage {
     
     func getChallenges() -> [Challenge] {
         let request = Challenge.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "displayOrder", ascending: true)]
         do {
             let list = try container.viewContext.fetch(request)
             return list
@@ -208,6 +217,7 @@ extension PersistantStorage {
     
     func getSubChallenges() -> [SubChallenge] {
         let request = SubChallenge.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "displayOrder", ascending: true)]
         do {
             let list = try container.viewContext.fetch(request)
             return list
