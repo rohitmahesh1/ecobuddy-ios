@@ -15,51 +15,122 @@ final class InstagramManager : NSObject {
     public static let instance = InstagramManager()
     
     func postImage(image: UIImage, result:((Bool)->Void)? = nil) {
-        guard let instagramURL = NSURL(string: "instagram://app") else {
-            if let result = result {
-                result(false)
-            }
+        guard let instagramURL = URL(string: "instagram://app") else {
+            result?(false)
             return
         }
-        
-        // let image = image.scaleImageWithAspectToWidth(640)
-        
-        do {
-            try PHPhotoLibrary.shared().performChangesAndWait {
-                let request = PHAssetChangeRequest.creationRequestForAsset(from: image)
-                
-                let assetID = request.placeholderForCreatedAsset?.localIdentifier ?? ""
-                let shareURL = "instagram://library?LocalIdentifier=" + assetID
-                
-                if UIApplication.shared.canOpenURL(instagramURL as URL) {
-                    if let urlForRedirect = NSURL(string: shareURL) {
-                        UIApplication.shared.open(URL(string: "\(urlForRedirect)")!)
+
+        guard UIApplication.shared.canOpenURL(instagramURL) else {
+            self.presentAlert(title: "Instagram Not Installed", message: "Install Instagram to share this image.")
+            result?(false)
+            return
+        }
+
+        getLibraryPermissionIfNecessary { [weak self] hasPermission in
+            guard let self else {
+                result?(false)
+                return
+            }
+
+            guard hasPermission else {
+                self.presentAlert(title: "Photo Access Needed", message: "Allow photo library access to share this image on Instagram.")
+                result?(false)
+                return
+            }
+
+            DispatchQueue.global(qos: .userInitiated).async {
+                do {
+                    var assetID = ""
+                    try PHPhotoLibrary.shared().performChangesAndWait {
+                        let request = PHAssetChangeRequest.creationRequestForAsset(from: image)
+                        assetID = request.placeholderForCreatedAsset?.localIdentifier ?? ""
                     }
-                } else {
-                    let alert = UIAlertController(title: "Instagram Not Installed", message: "", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    if let viewController = UIApplication.shared.keyWindow?.rootViewController {
-                        viewController.present(alert, animated: true, completion: nil)
+
+                    DispatchQueue.main.async {
+                        guard let urlForRedirect = URL(string: "instagram://library?LocalIdentifier=\(assetID)") else {
+                            result?(false)
+                            return
+                        }
+
+                        UIApplication.shared.open(urlForRedirect) { success in
+                            result?(success)
+                        }
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        result?(false)
                     }
                 }
-            }
-        } catch {
-            if let result = result {
-                result(false)
             }
         }
     }
 
     func getLibraryPermissionIfNecessary(completionHandler: @escaping  (Bool) -> Void) {
-        
-        guard PHPhotoLibrary.authorizationStatus() != .authorized else {
-            completionHandler(true)
-            return
+        let handleStatus: (PHAuthorizationStatus) -> Void = { status in
+            switch status {
+            case .authorized, .limited:
+                completionHandler(true)
+            default:
+                completionHandler(false)
+            }
         }
-        
-        PHPhotoLibrary.requestAuthorization { status in
-            completionHandler(status == .authorized)
+
+        if #available(iOS 14, *) {
+            let status = PHPhotoLibrary.authorizationStatus(for: .addOnly)
+            guard status == .notDetermined else {
+                handleStatus(status)
+                return
+            }
+
+            PHPhotoLibrary.requestAuthorization(for: .addOnly) { status in
+                DispatchQueue.main.async {
+                    handleStatus(status)
+                }
+            }
+        } else {
+            let status = PHPhotoLibrary.authorizationStatus()
+            guard status == .notDetermined else {
+                handleStatus(status)
+                return
+            }
+
+            PHPhotoLibrary.requestAuthorization { status in
+                DispatchQueue.main.async {
+                    handleStatus(status)
+                }
+            }
         }
+    }
+
+    private func presentAlert(title: String, message: String) {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            self.topViewController()?.present(alert, animated: true)
+        }
+    }
+
+    private func topViewController(base: UIViewController? = nil) -> UIViewController? {
+        let baseController = base ?? UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap(\.windows)
+            .first(where: \.isKeyWindow)?
+            .rootViewController
+
+        if let navigationController = baseController as? UINavigationController {
+            return topViewController(base: navigationController.visibleViewController)
+        }
+
+        if let tabBarController = baseController as? UITabBarController,
+           let selectedViewController = tabBarController.selectedViewController {
+            return topViewController(base: selectedViewController)
+        }
+
+        if let presentedViewController = baseController?.presentedViewController {
+            return topViewController(base: presentedViewController)
+        }
+
+        return baseController
     }
 }
 
