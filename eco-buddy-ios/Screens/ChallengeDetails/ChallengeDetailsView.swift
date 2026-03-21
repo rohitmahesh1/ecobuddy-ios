@@ -22,6 +22,10 @@ struct ChallengeDetailsView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State var showPopup: Bool = false
+    @State private var isShowingAlert = false
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
+    @State private var isSaving = false
     
     var challenge: Challenge?
     private var persistentStorage: PersistentStorage
@@ -51,11 +55,42 @@ struct ChallengeDetailsView: View {
         return isAllTaskDone && (challenge?.isCompleted ?? false)
     }
     
-    func completeChallenge() {
-        guard let challenge else { return }
-        self.persistentStorage.editChallenge(challenge, isDone: isAllTaskDone) {
-            print("Edited Challenge")
+    private func presentAlert(title: String, message: String) {
+        alertTitle = title
+        alertMessage = message
+        isShowingAlert = true
+    }
+
+    private func updatedCompletionState(for subChallenge: SubChallenge) -> Bool {
+        subChallenges.allSatisfy { currentSubChallenge in
+            if currentSubChallenge.subChallenge.wrappedSubChallengeId == subChallenge.wrappedSubChallengeId {
+                return !currentSubChallenge.subChallenge.challengeStatus
+            }
+
+            return currentSubChallenge.subChallenge.challengeStatus
         }
+    }
+
+    func completeChallenge() {
+        guard let challenge else {
+            presentAlert(title: "Couldn't update challenge", message: "Challenge details are unavailable right now.")
+            return
+        }
+
+        isSaving = true
+
+        self.persistentStorage.editChallenge(challenge, isDone: isAllTaskDone, result: { result in
+            self.isSaving = false
+
+            switch result {
+            case .success:
+                withAnimation {
+                    self.showPopup = true
+                }
+            case .failure(let error):
+                self.presentAlert(title: "Couldn't update challenge", message: error.localizedDescription)
+            }
+        })
     }
     
     private func getSubChallenges() {
@@ -70,13 +105,26 @@ struct ChallengeDetailsView: View {
             return SubChallengeVM(
                 subChallenge: subChallenge,
                 onTap: {
+                    guard !self.isSaving else { return }
                     self.selectedSubChallenge = subChallenge
-                    self.persistentStorage.editSubTask(subChallenge, isDone: subChallenge.challengeStatus) {
-                        self.persistentStorage.editChallenge(challenge, isDone: self.isAllTaskDone) {
-                            print("Edited challenge and sub challenge completion")
-                            self.getSubChallenges()
+                    self.isSaving = true
+
+                    self.persistentStorage.editSubTask(subChallenge, isDone: subChallenge.challengeStatus, result: { result in
+                        switch result {
+                        case .success:
+                            self.persistentStorage.editChallenge(challenge, isDone: self.updatedCompletionState(for: subChallenge), result: { result in
+                                self.isSaving = false
+                                self.getSubChallenges()
+
+                                if case .failure(let error) = result {
+                                    self.presentAlert(title: "Couldn't update challenge", message: error.localizedDescription)
+                                }
+                            })
+                        case .failure(let error):
+                            self.isSaving = false
+                            self.presentAlert(title: "Couldn't update task", message: error.localizedDescription)
                         }
-                    }
+                    })
                 }
             )
         })
@@ -143,14 +191,11 @@ struct ChallengeDetailsView: View {
                 CustomButtonView(
                     onTap: {
                         completeChallenge()
-                        withAnimation {
-                            self.showPopup = true
-                        }
                     },
-                    title: isPledge ? "Take the pledge" : "Complete Challenge"
+                    title: isSaving ? "Saving..." : (isPledge ? "Take the pledge" : "Complete Challenge")
                 )
-                .opacity(atleastOneDone ? 1 : 0.5)
-                .disabled(!atleastOneDone)
+                .opacity((atleastOneDone && !isSaving) ? 1 : 0.5)
+                .disabled(!atleastOneDone || isSaving)
                 .padding([.leading, .trailing], 20)
                 .padding(.bottom, UIDevice.hasTopNotch ? 0 : 10)
                 
@@ -182,6 +227,13 @@ struct ChallengeDetailsView: View {
         .sheet(isPresented: $imageViewModel.showShareSheet, content: {
             ShareSheet(photo: imageViewModel.image ?? UIImage(), text: challenge?.wrappedChallengeTitle ?? "")
         })
+        .alert(isPresented: $isShowingAlert) {
+            Alert(
+                title: Text(alertTitle),
+                message: Text(alertMessage),
+                dismissButton: .default(Text("OK"))
+            )
+        }
         .frame(width: UIScreen.main.bounds.width)
         
         .onAppear(perform: {
