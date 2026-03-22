@@ -87,7 +87,7 @@ struct ChallengesView: View {
                     .font(.gilroyBold(20))
             }
             
-            ToolbarItem(placement: .topBarLeading) {
+            ToolbarItem(placement: .navigationBarLeading) {
                 CustomBackButtonView()
             }
         })
