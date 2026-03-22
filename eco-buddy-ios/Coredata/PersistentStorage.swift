@@ -55,7 +55,7 @@ class PersistentStorage {
                 guard error == nil else { return completion(error) }
                 self.loadChallenges { error in
                     guard error == nil else { return completion(error) }
-                    self.loadSubChallenges(completion: completion)
+                    self.loadSubChallenges(completion)
                 }
             }
         }
