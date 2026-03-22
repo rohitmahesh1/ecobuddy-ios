@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-#if !canImport(DeveloperToolsSupport)
 extension Color {
     static var greenMain: Color {
         Color("greenMain")
@@ -37,4 +36,3 @@ extension Color {
         Color("lightGray")
     }
 }
-#endif
