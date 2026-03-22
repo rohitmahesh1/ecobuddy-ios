@@ -86,7 +86,7 @@ struct UserProfileView: View {
         })
         .edgesIgnoringSafeArea(.bottom)
         .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
+            ToolbarItem(placement: .navigationBarLeading) {
                 CustomBackButtonView()
             }
             
@@ -96,7 +96,7 @@ struct UserProfileView: View {
                     .foregroundStyle(.black)
             }
             
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
                     viewModel.onEditProfileTap()
                 }, label: {
