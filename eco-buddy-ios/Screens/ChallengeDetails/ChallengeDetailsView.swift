@@ -242,7 +242,7 @@ struct ChallengeDetailsView: View {
         .navigationBarTitleDisplayMode(.inline)
         .edgesIgnoringSafeArea(challenge?.challengeImage != nil ? .top : .leading )
         .toolbar(content: {
-            ToolbarItem(placement: .topBarLeading) {
+            ToolbarItem(placement: .navigationBarLeading) {
                 if !showPopup {
                     CustomBackButtonView()
                 }
