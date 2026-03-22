@@ -9,6 +9,11 @@ on:
 jobs:
   build-and-test:
     runs-on: macos-latest
+    env:
+      PROJECT_PATH: eco-buddy-ios.xcodeproj
+      SCHEME: eco-buddy-ios
+      DERIVED_DATA_PATH: DerivedData
+      RESULT_BUNDLE_PATH: TestResults.xcresult
 
     steps:
       - name: Check out repository
@@ -52,6 +57,9 @@ jobs:
       - name: Show Xcode version
         run: xcodebuild -version
 
+      - name: Install xcbeautify
+        run: brew install xcbeautify
+
       - name: Select an available iPhone simulator
         run: |
           SIMULATOR_ID=$(xcrun simctl list devices available | grep -m 1 "iPhone" | grep -oE '[A-F0-9-]{36}')
@@ -65,16 +73,40 @@ jobs:
 
       - name: Resolve Swift packages
         run: |
+          set -o pipefail
           xcodebuild -resolvePackageDependencies \
-            -project eco-buddy-ios.xcodeproj \
-            -scheme eco-buddy-ios
+            -project "$PROJECT_PATH" \
+            -scheme "$SCHEME" | xcbeautify
 
-      - name: Run tests
+      - name: Build for testing
         env:
           CI: "true"
         run: |
-          xcodebuild test \
-            -project eco-buddy-ios.xcodeproj \
-            -scheme eco-buddy-ios \
+          set -o pipefail
+          xcodebuild build-for-testing \
+            -project "$PROJECT_PATH" \
+            -scheme "$SCHEME" \
             -destination "platform=iOS Simulator,id=$SIMULATOR_ID" \
-            CODE_SIGNING_ALLOWED=NO
+            -derivedDataPath "$DERIVED_DATA_PATH" \
+            CODE_SIGNING_ALLOWED=NO | xcbeautify
+
+      - name: Run tests without building
+        env:
+          CI: "true"
+        run: |
+          set -o pipefail
+          xcodebuild test-without-building \
+            -project "$PROJECT_PATH" \
+            -scheme "$SCHEME" \
+            -destination "platform=iOS Simulator,id=$SIMULATOR_ID" \
+            -derivedDataPath "$DERIVED_DATA_PATH" \
+            -resultBundlePath "$RESULT_BUNDLE_PATH" \
+            CODE_SIGNING_ALLOWED=NO | xcbeautify
+
+      - name: Upload xcresult bundle on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-test-results
+          path: TestResults.xcresult
+          if-no-files-found: ignore
