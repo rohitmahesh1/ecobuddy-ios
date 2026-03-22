@@ -13,11 +13,20 @@ jobs:
       PROJECT_PATH: eco-buddy-ios.xcodeproj
       SCHEME: eco-buddy-ios
       DERIVED_DATA_PATH: DerivedData
+      CLONED_SOURCE_PACKAGES_DIR: SourcePackages
       RESULT_BUNDLE_PATH: TestResults.xcresult
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+
+      - name: Cache Swift packages
+        uses: actions/cache@v4
+        with:
+          path: SourcePackages
+          key: ${{ runner.os }}-spm-${{ hashFiles('eco-buddy-ios.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
 
       - name: Create placeholder Firebase config
         run: |
@@ -76,7 +85,8 @@ jobs:
           set -o pipefail
           xcodebuild -resolvePackageDependencies \
             -project "$PROJECT_PATH" \
-            -scheme "$SCHEME" | xcbeautify
+            -scheme "$SCHEME" \
+            -clonedSourcePackagesDirPath "$CLONED_SOURCE_PACKAGES_DIR" | xcbeautify
 
       - name: Build for testing
         env:
@@ -87,6 +97,7 @@ jobs:
             -project "$PROJECT_PATH" \
             -scheme "$SCHEME" \
             -destination "platform=iOS Simulator,id=$SIMULATOR_ID" \
+            -clonedSourcePackagesDirPath "$CLONED_SOURCE_PACKAGES_DIR" \
             -derivedDataPath "$DERIVED_DATA_PATH" \
             CODE_SIGNING_ALLOWED=NO | xcbeautify
 
@@ -99,6 +110,7 @@ jobs:
             -project "$PROJECT_PATH" \
             -scheme "$SCHEME" \
             -destination "platform=iOS Simulator,id=$SIMULATOR_ID" \
+            -clonedSourcePackagesDirPath "$CLONED_SOURCE_PACKAGES_DIR" \
             -derivedDataPath "$DERIVED_DATA_PATH" \
             -resultBundlePath "$RESULT_BUNDLE_PATH" \
             CODE_SIGNING_ALLOWED=NO | xcbeautify
