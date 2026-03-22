@@ -12,10 +12,18 @@ struct eco_buddy_iosApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
+    private var isRunningTests: Bool {
+        ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+    }
+    
     var body: some Scene {
         WindowGroup {
-            NavigationView {
-                ContentView()
+            if isRunningTests {
+                EmptyView()
+            } else {
+                NavigationView {
+                    ContentView()
+                }
             }
         }
     }
