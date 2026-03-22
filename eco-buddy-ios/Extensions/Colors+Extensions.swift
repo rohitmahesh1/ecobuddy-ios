@@ -7,32 +7,34 @@
 
 import SwiftUI
 
+#if !canImport(DeveloperToolsSupport)
 extension Color {
     static var greenMain: Color {
-        return Color("greenMain")
+        Color("greenMain")
     }
     
     static var redMain: Color {
-        return Color("redMain")
+        Color("redMain")
     }
     
     static var ecoPink: Color {
-        return Color("ecoPink")
+        Color("ecoPink")
     }
     
     static var ecoGreen: Color {
-        return Color("ecoGreen")
+        Color("ecoGreen")
     }
     
     static var ecoSkyBlue: Color {
-        return Color("ecoSkyBlue")
+        Color("ecoSkyBlue")
     }
     
     static var grayBackground: Color {
-        return Color("grayBackground")
+        Color("grayBackground")
     }
     
     static var lightGray: Color {
-        return Color("lightGray")
+        Color("lightGray")
     }
 }
+#endif
