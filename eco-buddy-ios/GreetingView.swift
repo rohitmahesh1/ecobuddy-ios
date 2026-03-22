@@ -169,7 +169,7 @@ struct GreetingView: View, KeyboardReadable {
                 Text("")
             }
             .toolbar(content: {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .navigationBarLeading) {
                     if isEditProfile {
                         CustomBackButtonView()
                     }
