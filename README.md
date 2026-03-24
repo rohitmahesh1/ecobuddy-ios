@@ -1,7 +1,7 @@
 # Eco Health
 
 <p align="center">
-  <img src="docs/readme/hero.svg" alt="Eco Health hero graphic" width="100%" />
+  <img src="docs/readme/Home+(4).jpg" alt="Eco Health hero graphic" width="100%" />
 </p>
 
 Eco Health is a SwiftUI iOS app that turns eco-health education into approachable action. The experience combines clean-air challenges, healthy-living pledges, and environmental awareness content in a friendly, visual interface designed to feel lightweight, encouraging, and easy to explore.
